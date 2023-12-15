@@ -524,6 +524,7 @@ namespace esphome
                     target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
                     continue;
                 }
+                    
                 default:
                 {
 
