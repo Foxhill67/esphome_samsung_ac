@@ -352,6 +352,12 @@ namespace esphome
             return packet.encode();
         }
 
+        std::vector<uint8_t> NasaProtocol::get_water_heater_power_message(const std::string &address, bool value)
+        {
+            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::ENUM_in_water_heater_power, value ? 1 : 0);
+            return packet.encode();
+        }
+
         int fanmode_to_nasa_fanmode(FanMode mode)
         {
             // This stuff did not exists in XML only in Remcode.dll
