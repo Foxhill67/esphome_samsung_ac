@@ -80,6 +80,7 @@ namespace esphome
             std::vector<uint8_t> get_target_temp_message(const std::string &address, float value) override;
             std::vector<uint8_t> get_mode_message(const std::string &address, Mode value) override;
             std::vector<uint8_t> get_fanmode_message(const std::string &address, FanMode value) override;
+            std::vector<uint8_t> get_water_heater_power_message(const std::string &address, bool value) override;
         };
     } // namespace samsung_ac
 } // namespace esphome
