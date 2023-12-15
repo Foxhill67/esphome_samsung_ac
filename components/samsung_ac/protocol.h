@@ -38,6 +38,7 @@ namespace esphome
             virtual std::vector<uint8_t> get_target_temp_message(const std::string &address, float value) = 0;
             virtual std::vector<uint8_t> get_mode_message(const std::string &address, Mode value) = 0;
             virtual std::vector<uint8_t> get_fanmode_message(const std::string &address, FanMode value) = 0;
+            virtual std::vector<uint8_t> get_water_heater_power_message(const std::string &address, bool value) = 0;
         };
 
         class MessageTarget
