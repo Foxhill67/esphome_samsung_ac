@@ -524,6 +524,12 @@ namespace esphome
                     target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
                     continue;
                 }
+                case MessageNumber::ENUM_in_water_heater_power:
+                {
+                    ESP_LOGW(TAG, "s:%s d:%s ENUM_in_water_heater_power %s", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value == 0 ? "off" : "on");
+                    target->set_water_heater_power(packet_.sa.to_string(), message.value != 0);
+                    continue;
+                }
                 default:
                 {
 
