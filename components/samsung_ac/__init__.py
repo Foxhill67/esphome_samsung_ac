@@ -52,6 +52,7 @@ CONF_DEVICE_TARGET_TEMPERATURE = "target_temperature"
 CONF_DEVICE_POWER = "power"
 CONF_DEVICE_MODE = "mode"
 CONF_DEVICE_CLIMATE = "climate"
+CONF_DEVICE_WATER_HEATER_POWER = "water_heater_power"
 
 DEVICE_SCHEMA = (
     cv.Schema(
@@ -156,6 +157,11 @@ async def to_code(config):
             await climate.register_climate(var_cli, conf)
             cg.add(var_dev.set_climate(var_cli))
 
+        if CONF_DEVICE_WATER_HEATER_POWER in device:
+            conf = device[CONF_DEVICE_WATER_HEATER_POWER]
+            sens = await switch.new_switch(conf)
+            cg.add(var_dev.set_water_heater_power_switch(sens))
+ 
         cg.add(var.register_device(var_dev))
 
     if CONF_PAUSE_PROCESSING in config:
