@@ -75,6 +75,7 @@ namespace esphome
             ENUM_in_fan_mode = 0x4006, // Did not exists in xml...only in Remocon.dll code
             ENUM_in_fan_mode_real = 0x4007,
             ENUM_in_state_humidity_percent = 0x4038,
+            ENUM_in_water_heater_power = 0x4065,
             VAR_in_temp_room_f = 0x4203,
             VAR_in_temp_target_f = 0x4201,
         };
