@@ -1,7 +1,7 @@
 #include "esphome/core/log.h"
 #include "debug_mqtt.h"
 
-#ifdef USE_ESP8266
+#ifdef USE_ESP32
 #include <AsyncMqttClient.h>
 
 AsyncMqttClient *mqtt_client{nullptr};
@@ -13,7 +13,7 @@ namespace esphome
     {
         bool debug_mqtt_connected()
         {
-#ifdef USE_ESP8266
+#ifdef USE_ESP32
             if (mqtt_client == nullptr)
                 return false;
 
@@ -25,7 +25,7 @@ namespace esphome
 
         void debug_mqtt_connect(const std::string &host, const uint16_t port, const std::string &username, const std::string &password)
         {
-#ifdef USE_ESP8266
+#ifdef USE_ESP32
             if (mqtt_client == nullptr)
             {
                 mqtt_client = new AsyncMqttClient();
@@ -41,7 +41,7 @@ namespace esphome
 
         bool debug_mqtt_publish(const std::string &topic, const std::string &payload)
         {
-#ifdef USE_ESP8266
+#ifdef USE_ESP32
             if (mqtt_client == nullptr)
                 return false;
 
