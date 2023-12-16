@@ -111,7 +111,7 @@ CONFIG_SCHEMA = (
 
 async def to_code(config):
     # For Debug_MQTT
-    if CORE.is_esp8266 or CORE.is_libretiny:
+    if CORE.is_esp8266 or CORE.is_libretiny or CORE.is_esp32:
         cg.add_library("heman/AsyncMqttClient-esphome", "2.0.0")
 
     var = cg.new_Pvariable(config[CONF_ID])
