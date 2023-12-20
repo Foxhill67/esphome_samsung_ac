@@ -524,7 +524,7 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_in_state_water_pump_4089:
                 {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::VAR_in_4204:
