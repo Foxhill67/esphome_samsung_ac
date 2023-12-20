@@ -950,6 +950,13 @@ namespace esphome
                     case 0x8248:
                     case 0x823f:
                     case 0x4204:
+                    {
+                        if (debug_mqtt_connected())
+                        {
+                            debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                        }
+                        continue;
+                    }
                     case 0x4006:
                     {
                         // ESP_LOGW(TAG, "s:%s d:%s NoMap %s %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), long_to_hex((int)message.messageNumber).c_str(), message.value);
