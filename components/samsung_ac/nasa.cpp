@@ -571,7 +571,7 @@ namespace esphome
                         continue;
                     }
 
-                    continue;
+                    //??continue;
 
                     switch ((uint16_t)message.messageNumber)
                     {
