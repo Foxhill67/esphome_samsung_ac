@@ -468,8 +468,6 @@ namespace esphome
                     else if (message.type == MessageSetType::Variable)
                     {
                         debug_mqtt_publish("samsung_ac/nasa/var/" + long_to_hex((uint16_t)message.messageNumber), std::to_string(message.value));
-                        debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-
                     }
                     else if (message.type == MessageSetType::LongVariable)
                     {
