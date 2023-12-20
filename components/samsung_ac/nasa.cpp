@@ -522,13 +522,15 @@ namespace esphome
                     target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
                     continue;
                 }
+                case MessageNumber::ENUM_in_state_water_pump_4089:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }
                 case MessageNumber::VAR_in_4204:
                 {
-                    if (debug_mqtt_connected())
-                    {
-                        double temp = (double)message.value / (double)10;
-                        debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    }
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 default:
