@@ -954,7 +954,8 @@ namespace esphome
                         if (debug_mqtt_connected())
                         {
                             double temp = (double)message.value / (double)10;
-                            debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+//                            debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                            debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", "23.1");
                         }
                         continue;
                     }
