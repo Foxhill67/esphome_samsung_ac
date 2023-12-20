@@ -570,8 +570,17 @@ namespace esphome
                         ESP_LOGW(TAG, "s:%s d:%s ENUM_IN_OPERATION_POWER_ZONE2 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                         continue;
                     }
+                    if (((uint16_t)message.messageNumber) == 0x4204)
+                    {
+                        if (debug_mqtt_connected())
+                        {
+                            double temp = (double)message.value / (double)10;
+                            debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                        }
+                        continue;
+                    }
 
-                    //??continue;
+                    continue;
 
                     switch ((uint16_t)message.messageNumber)
                     {
@@ -609,15 +618,6 @@ namespace esphome
                         // Todo Map
 
                         ESP_LOGW(TAG, "s:%s d:%s ENUM_IN_LOUVER_HL_SWING %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
-                        continue;
-                    }
-                    case 0x4204:
-                    {
-                        if (debug_mqtt_connected())
-                        {
-                            double temp = (double)message.value / (double)10;
-                            debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                        }
                         continue;
                     }
                     case 0x4205: // VAR_in_temp_eva_in_f unit = 'Celsius'
@@ -957,7 +957,7 @@ namespace esphome
                     case 0x808d:
                     case 0x8248:
                     case 0x823f:
-                    //case 0x4204:
+                    case 0x4204:
                     case 0x4006:
                     {
                         // ESP_LOGW(TAG, "s:%s d:%s NoMap %s %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), long_to_hex((int)message.messageNumber).c_str(), message.value);
