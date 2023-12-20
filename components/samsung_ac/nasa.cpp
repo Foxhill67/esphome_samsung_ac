@@ -957,7 +957,7 @@ namespace esphome
                     case 0x808d:
                     case 0x8248:
                     case 0x823f:
-                    case 0x4204:
+                    //case 0x4204:
                     case 0x4006:
                     {
                         // ESP_LOGW(TAG, "s:%s d:%s NoMap %s %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), long_to_hex((int)message.messageNumber).c_str(), message.value);
