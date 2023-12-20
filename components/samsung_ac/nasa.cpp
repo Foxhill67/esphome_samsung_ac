@@ -955,7 +955,7 @@ namespace esphome
                         {
 //                            debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                             debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_4204/state", std::to_string(message.value));
-                            ESP_LOGW(TAG, "test bericht voor 4204");
+                            ESP_LOGE(TAG, "test bericht voor 4204");
                         }
                         continue;
                     }
