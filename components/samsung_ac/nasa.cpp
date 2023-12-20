@@ -522,6 +522,15 @@ namespace esphome
                     target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
                     continue;
                 }
+                case 0x4204:
+                {
+                    if (debug_mqtt_connected())
+                    {
+                        double temp = (double)message.value / (double)10;
+                        debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    }
+                    continue;
+                }
                 default:
                 {
 
@@ -568,15 +577,6 @@ namespace esphome
                     if (((uint16_t)message.messageNumber) == 0x411E)
                     {
                         ESP_LOGW(TAG, "s:%s d:%s ENUM_IN_OPERATION_POWER_ZONE2 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
-                        continue;
-                    }
-                    if (((uint16_t)message.messageNumber) == 0x4204)
-                    {
-                        if (debug_mqtt_connected())
-                        {
-                            double temp = (double)message.value / (double)10;
-                            debug_mqtt_publish("homeassistant/sensor/samsung_ehs_var_" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                        }
                         continue;
                     }
 
