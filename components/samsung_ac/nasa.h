@@ -71,11 +71,15 @@ namespace esphome
         {
             Undefiend = 0,
             ENUM_in_operation_power = 0x4000,
-            ENUM_in_operation_mode = 0x4001,
+            ENUM_in_operation_mode_4001 = 0x4001,
+            ENUM_in_operation_mode_real_4002 = 0x4002,
             ENUM_in_fan_mode = 0x4006, // Did not exists in xml...only in Remocon.dll code
             ENUM_in_fan_mode_real = 0x4007,
             ENUM_in_state_humidity_percent = 0x4038,
+            ENUM_IN_WATER_HEATER_MODE_4066 = 0x4066,
+            ENUM_IN_BACKUP_HEATER_406C = 0x406C,
             ENUM_in_state_water_pump_4089 = 0x4089,
+            ENUM_IN_WATERPUMP_PWM_VALUE_40C4 = 0x40C4,
             VAR_in_temp_target_f_4201 = 0x4201,
             VAR_in_4202 = 0x4202,
             VAR_in_temp_room_f_4203 = 0x4203,
@@ -90,6 +94,18 @@ namespace esphome
             VAR_IN_TEMP_WATER_OUTLET_TARGET_F_4247 = 0x4247,
             VAR_IN_TEMP_WATER_LAW_TARGET_F_4248 = 0x4248,
             VAR_IN_TEMP_WATER_LAW_F_427F = 0x427F,
+            LVAR_In_Device_staus_Heatpump_Boiler_440A = 0x440A,
+            LVAR_in_4424 = 0x4424,
+            LVAR_in_4426 = 0x4426,
+            LVAR_in_4427 = 0x4427,
+            ENUM_OUT_OPERATION_SERVICE_OP_8000 = 0x8000,
+            ENUM_out_operation_odu_mode_8001 = 0x8001,
+            VAR_out_error_code_8235 = 0x8235,
+            VAR_out_load_fanrpm1_823D = 0x823D,
+            VAR_out_sensor_top1_8280 = 0x8280,
+            LVAR_in_8411 = 0x8411,
+            LVAR_OUT_CONTROL_WATTMETER_1W_1MIN_SUM_8413 = 0x8413,
+            LVAR_in_8414 = 0x8414,
         };
 
         struct Address
