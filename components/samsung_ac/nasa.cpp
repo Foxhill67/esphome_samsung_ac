@@ -494,14 +494,14 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_in_operation_mode_4001:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_operation_mode_4001 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     target->set_mode(packet_.sa.to_string(), operation_mode_to_mode(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_in_operation_mode_real_4002:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                case MessageNumber::ENUM_in_fan_mode_real:
@@ -532,12 +532,12 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_WATER_HEATER_MODE_4066:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_BACKUP_HEATER_406c:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_OUTING_MODE_406d:
@@ -557,7 +557,7 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_WATERPUMP_PWM_VALUE_40c4:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::VAR_in_temp_target_f_4201: // unit = 'Celsius' from XML
@@ -671,12 +671,12 @@ namespace esphome
                 }                    
                 case MessageNumber::ENUM_OUT_OPERATION_SERVICE_OP_8000:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_out_operation_odu_mode_8001:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::VAR_out_error_code_8235:
