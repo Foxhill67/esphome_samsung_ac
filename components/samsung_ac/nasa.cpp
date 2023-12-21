@@ -554,6 +554,55 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
+                case MessageNumber::VAR_IN_TEMP_WATER_HEATER_TARGET_F_4235:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_IN_TEMP_WATER_IN_F_4236:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_IN_TEMP_WATER_TANK_F_4237:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_IN_TEMP_WATER_OUT_F_4238:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_IN_TEMP_WATER_OUT2_F_4239:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_IN_TEMP_WATER_OUTLET_TARGET_F_4247:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_IN_TEMP_WATER_LAW_TARGET_F_4248:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_IN_TEMP_WATER_LAW_F_427F:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+
                 default:
                 {
 
