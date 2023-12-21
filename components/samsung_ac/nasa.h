@@ -75,9 +75,15 @@ namespace esphome
             ENUM_IN_OPERATION_MODE_REAL_4002 = 0x4002,
             ENUM_IN_FAN_MODE = 0x4006, // DID NOT EXISTS IN XML...ONLY IN REMOCON.DLL CODE
             ENUM_IN_FAN_MODE_REAL = 0x4007,
+            ENUM_IN_STATE_THERMO_4028 = 0x4028,
+            ENUM_IN_STATE_DEFROST_MODE_402E = 0x402e,
             ENUM_IN_STATE_HUMIDITY_PERCENT = 0x4038,
+            ENUM_IN_SILENCE_4046 = 0x4046,
+            ENUM_IN_WATER_HEATER_POWER_4065 = 0x4065,
             ENUM_IN_WATER_HEATER_MODE_4066 = 0x4066,
             ENUM_IN_BACKUP_HEATER_406C = 0x406C,
+            ENUM_IN_OUTING_MODE_406D = 0x406D,
+            ENUM_IN_BOOSTER_HEATER_4087 = 0x4087,
             ENUM_IN_STATE_WATER_PUMP_4089 = 0x4089,
             ENUM_IN_WATERPUMP_PWM_VALUE_40C4 = 0x40C4,
             VAR_IN_TEMP_TARGET_F_4201 = 0x4201,
@@ -147,7 +153,7 @@ namespace esphome
 
         struct MessageSet
         {
-            MessageNumber messageNumber = MessageNumber::Undefiend;
+            MessageNumber messageNumber = MessageNumber::UNDEFINED;
             MessageSetType type = Enum;
             union
             {
