@@ -76,9 +76,12 @@ namespace esphome
             ENUM_in_fan_mode_real = 0x4007,
             ENUM_in_state_humidity_percent = 0x4038,
             ENUM_in_state_water_pump_4089 = 0x4089,
-            VAR_in_temp_room_f = 0x4203,
             VAR_in_temp_target_f = 0x4201,
+            VAR_in_4202 = 0x4202,
+            VAR_in_temp_room_f = 0x4203,
             VAR_in_4204 = 0x4204,
+            VAR_in_temp_eva_in_f = 0x4205,
+            VAR_in_temp_eva_out_f = 0x4206,
         };
 
         struct Address
