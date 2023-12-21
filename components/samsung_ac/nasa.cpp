@@ -342,7 +342,7 @@ namespace esphome
 
         std::vector<uint8_t> NasaProtocol::get_target_temp_message(const std::string &address, float value)
         {
-            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::VAR_in_temp_target_f, value * 10.0);
+            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::VAR_in_temp_target_f_4203, value * 10.0);
             return packet.encode();
         }
 
@@ -487,7 +487,7 @@ namespace esphome
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_room_f %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
+                    ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_room_f_4201 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
                     target->set_room_temperature(packet_.sa.to_string(), temp);
                     continue;
                 }
@@ -496,7 +496,7 @@ namespace esphome
                     double temp = (double)message.value / (double)10;
                     // if (value == 1) value = 'waterOutSetTemp'; //action in xml
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_target_f %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
+                    ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_target_f_4203 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
                     target->set_target_temperature(packet_.sa.to_string(), temp);
                     continue;
                 }
