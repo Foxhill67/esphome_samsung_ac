@@ -474,10 +474,6 @@ namespace esphome
                         {
                             debug_mqtt_publish("samsung_ac/nasa/var_long/" + long_to_hex((uint16_t)message.messageNumber), std::to_string(message.value));
                         }
-                        else if (message.type == MessageSetType::Structure)
-                        {
-                            debug_mqtt_publish("samsung_ac/nasa/structure/" + long_to_hex((uint16_t)message.messageNumber), std::to_string(message.value));
-                        }
                     }
                 }
                 switch (message.messageNumber)
