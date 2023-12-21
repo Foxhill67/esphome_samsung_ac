@@ -528,7 +528,37 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
                     continue;
                 }
+                case MessageNumber::VAR_in_4201:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_in_4202:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_in_4203:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
                 case MessageNumber::VAR_in_4204:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_in_4205:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
+                case MessageNumber::VAR_in_4206:
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
