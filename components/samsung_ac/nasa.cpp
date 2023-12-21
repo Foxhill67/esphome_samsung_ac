@@ -653,7 +653,37 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
-
+                case MessageNumber::LVAR_In_Device_staus_Heatpump_Boiler_440a:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }                    
+                case MessageNumber::LVAR_In_4424:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }                    
+                case MessageNumber::LVAR_In_4426:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }                    
+                case MessageNumber::LVAR_In_4427:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }                    
+                case MessageNumber::ENUM_OUT_OPERATION_SERVICE_OP_8000:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    continue;
+                }
+                case MessageNumber::ENUM_out_operation_odu_mode_8001:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
+                    continue;
+                }
+                    
                 default:
                 {
 
