@@ -103,9 +103,9 @@ namespace esphome
             VAR_out_error_code_8235 = 0x8235,
             VAR_out_load_fanrpm1_823d = 0x823d,
             VAR_out_sensor_top1_8280 = 0x8280,
-            LVAR_in_8411 = 0x8411,
+            LVAR_out_8411 = 0x8411,
             LVAR_OUT_CONTROL_WATTMETER_1W_1MIN_SUM_8413 = 0x8413,
-            LVAR_in_8414 = 0x8414,
+            LVAR_out_8414 = 0x8414,
         };
 
         struct Address
