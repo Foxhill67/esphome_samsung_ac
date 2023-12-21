@@ -82,6 +82,14 @@ namespace esphome
             VAR_in_4204 = 0x4204,
             VAR_in_temp_eva_in_f_4205 = 0x4205,
             VAR_in_temp_eva_out_f_4206 = 0x4206,
+            VAR_IN_TEMP_WATER_HEATER_TARGET_F_4235 = 0x4235,
+            VAR_IN_TEMP_WATER_IN_F_4236 = 0x4236,
+            VAR_IN_TEMP_WATER_TANK_F_4237 = 0x4237,
+            VAR_IN_TEMP_WATER_OUT_F_4238 = 0x4238,
+            VAR_IN_TEMP_WATER_OUT2_F_4239 = 0x4239,
+            VAR_IN_TEMP_WATER_OUTLET_TARGET_F_4247 = 0x4247,
+            VAR_IN_TEMP_WATER_LAW_TARGET_F_4248 = 0x4248,
+            VAR_IN_TEMP_WATER_LAW_F_427F = 0x427F,
         };
 
         struct Address
