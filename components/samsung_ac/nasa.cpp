@@ -548,7 +548,7 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
-                case MessageNumber::VAR_in_temp_eva_out_f_42-6:
+                case MessageNumber::VAR_in_temp_eva_out_f_4206:
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
@@ -646,14 +646,14 @@ namespace esphome
                     case 0x4205: // VAR_in_temp_eva_in_f unit = 'Celsius'
                     {
                         double temp = (double)message.value / (double)10;
-                        ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_eva_in_f %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
+                        ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_eva_in_f_4205 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
                         continue;
                     }
 
                     case 0x4206: // VAR_in_temp_eva_out_f unit = 'Celsius'
                     {
                         double temp = (double)message.value / (double)10;
-                        ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_eva_out_f %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
+                        ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_eva_out_f_4206 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
                         continue;
                     }
 
