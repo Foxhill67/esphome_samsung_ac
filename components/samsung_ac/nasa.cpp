@@ -514,6 +514,26 @@ namespace esphome
                     target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
                     continue;
                 }
+                case MessageNumber::ENUM_IN_STATE_THERMO_4028:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    continue;
+                }
+                case MessageNumber::ENUM_in_state_defrost_mode_402e:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    continue;
+                }
+                case MessageNumber::ENUM_IN_SILENCE_4046:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    continue;
+                }
+                case MessageNumber::ENUM_IN_WATER_HEATER_POWER_4065:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    continue;
+                }
                 case MessageNumber::ENUM_IN_WATER_HEATER_MODE_4066:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
@@ -524,14 +544,24 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
                     continue;
                 }
+                case MessageNumber::ENUM_IN_OUTING_MODE_406d:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    continue;
+                }
+                case MessageNumber::ENUM_IN_BOOSTER_HEATER_4087:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    continue;
+                }
+                case MessageNumber::ENUM_IN_STATE_WATER_PUMP_4089:
+                {
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    continue;
+                }
                 case MessageNumber::ENUM_IN_WATERPUMP_PWM_VALUE_40c4:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
-                    continue;
-                }
-                case MessageNumber::ENUM_in_state_water_pump_4089:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
                     continue;
                 }
                 case MessageNumber::VAR_in_temp_target_f_4201: // unit = 'Celsius' from XML
