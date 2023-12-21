@@ -683,7 +683,36 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value);
                     continue;
                 }
-                    
+                case MessageNumber::VAR_out_error_code_8235:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }                    
+                case MessageNumber::VAR_out_load_fanrpm1_823d:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }                
+                case MessageNumber::VAR_out_sensor_top1_8280:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }                
+                case MessageNumber::LVAR_out_8411:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                } 
+                case MessageNumber::LVAR_OUT_CONTROL_WATTMETER_1W_1MIN_SUM_8413:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                } 
+                case MessageNumber::LVAR_out_8414:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                } 
                 default:
                 {
 
