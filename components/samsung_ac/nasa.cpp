@@ -336,19 +336,19 @@ namespace esphome
 
         std::vector<uint8_t> NasaProtocol::get_power_message(const std::string &address, bool value)
         {
-            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::ENUM_in_operation_power, value ? 1 : 0);
+            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::ENUM_IN_OPERATION_POWER, value ? 1 : 0);
             return packet.encode();
         }
 
         std::vector<uint8_t> NasaProtocol::get_target_temp_message(const std::string &address, float value)
         {
-            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::VAR_in_temp_target_f_4201, value * 10.0);
+            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::VAR_IN_TEMP_TARGET_F_4201, value * 10.0);
             return packet.encode();
         }
 
         std::vector<uint8_t> NasaProtocol::get_mode_message(const std::string &address, Mode value)
         {
-            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::ENUM_in_operation_mode_4001, (int)value);
+            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::ENUM_IN_OPERATION_MODE_4001, (int)value);
             return packet.encode();
         }
 
@@ -371,7 +371,7 @@ namespace esphome
 
         std::vector<uint8_t> NasaProtocol::get_fanmode_message(const std::string &address, FanMode value)
         {
-            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::ENUM_in_fan_mode, fanmode_to_nasa_fanmode(value));
+            auto packet = Packet::create(Address::parse(address), DataType::Request, MessageNumber::ENUM_IN_FAN_MODE, fanmode_to_nasa_fanmode(value));
             ESP_LOGW(TAG, "test %s", packet.to_string().c_str());
             return packet.encode();
         }
@@ -479,32 +479,32 @@ namespace esphome
                 switch (message.messageNumber)
                 {
 
-                case MessageNumber::ENUM_in_state_humidity_percent:
+                case MessageNumber::ENUM_IN_STATE_HUMIDITY_PERCENT:
                 {
                     // XML Enum no value but in Code it adds unit
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_state_humidity_percent %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     target->set_room_humidity(packet_.sa.to_string(), message.value);
                     continue;
                 }
-                case MessageNumber::ENUM_in_operation_power:
+                case MessageNumber::ENUM_IN_OPERATION_POWER:
                 {
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_operation_power %s", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value == 0 ? "off" : "on");
                     target->set_power(packet_.sa.to_string(), message.value != 0);
                     continue;
                 }
-                case MessageNumber::ENUM_in_operation_mode_4001:
+                case MessageNumber::ENUM_IN_OPERATION_MODE_4001:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_operation_mode_4001 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     target->set_mode(packet_.sa.to_string(), operation_mode_to_mode(message.value));
                     continue;
                 }
-                case MessageNumber::ENUM_in_operation_mode_real_4002:
+                case MessageNumber::ENUM_IN_OPERATION_MODE_REAL_4002:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
-               case MessageNumber::ENUM_in_fan_mode_real:
+               case MessageNumber::ENUM_IN_FAN_MODE_REAL:
                 {
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_fan_mode_real %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
@@ -515,7 +515,7 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
                     continue;
                 }
-                case MessageNumber::ENUM_in_state_defrost_mode_402e:
+                case MessageNumber::ENUM_IN_STATE_DEFROST_MODE_402E:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
                     continue;
@@ -535,12 +535,12 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
-                case MessageNumber::ENUM_IN_BACKUP_HEATER_406c:
+                case MessageNumber::ENUM_IN_BACKUP_HEATER_406C:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
-                case MessageNumber::ENUM_IN_OUTING_MODE_406d:
+                case MessageNumber::ENUM_IN_OUTING_MODE_406D:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
                     continue;
@@ -555,12 +555,12 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
                     continue;
                 }
-                case MessageNumber::ENUM_IN_WATERPUMP_PWM_VALUE_40c4:
+                case MessageNumber::ENUM_IN_WATERPUMP_PWM_VALUE_40C4:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
-                case MessageNumber::VAR_in_temp_target_f_4201: // unit = 'Celsius' from XML
+                case MessageNumber::VAR_IN_TEMP_TARGET_F_4201: // unit = 'Celsius' from XML
                 {
                     double temp = (double)message.value / (double)10;
                     // if (value == 1) value = 'waterOutSetTemp'; //action in xml
@@ -569,13 +569,13 @@ namespace esphome
                     target->set_target_temperature(packet_.sa.to_string(), temp);
                     continue;
                 }
-                case MessageNumber::VAR_in_4202:
+                case MessageNumber::VAR_IN_4202:
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
-                case MessageNumber::VAR_in_temp_room_f_4203: //  unit = 'Celsius' from XML
+                case MessageNumber::VAR_IN_TEMP_ROOM_F_4203: //  unit = 'Celsius' from XML
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
@@ -583,19 +583,19 @@ namespace esphome
                     target->set_room_temperature(packet_.sa.to_string(), temp);
                     continue;
                 }
-                case MessageNumber::VAR_in_4204:
+                case MessageNumber::VAR_IN_4204:
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
-                case MessageNumber::VAR_in_temp_eva_in_f_4205:
+                case MessageNumber::VAR_IN_TEMP_EVA_IN_F_4205:
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
-                case MessageNumber::VAR_in_temp_eva_out_f_4206:
+                case MessageNumber::VAR_IN_TEMP_EVA_OUT_F_4206:
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
@@ -649,22 +649,22 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
-                case MessageNumber::LVAR_In_Device_staus_Heatpump_Boiler_440a:
+                case MessageNumber::LVAR_IN_DEVICE_STAUS_HEATPUMP_BOILER_440A:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }                    
-                case MessageNumber::LVAR_In_4424:
+                case MessageNumber::LVAR_IN_4424:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }                    
-                case MessageNumber::LVAR_In_4426:
+                case MessageNumber::LVAR_IN_4426:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }                    
-                case MessageNumber::LVAR_In_4427:
+                case MessageNumber::LVAR_IN_4427:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
@@ -674,27 +674,27 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
-                case MessageNumber::ENUM_out_operation_odu_mode_8001:
+                case MessageNumber::ENUM_OUT_OPERATION_ODU_MODE_8001:
                 {
                     debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
-                case MessageNumber::VAR_out_error_code_8235:
+                case MessageNumber::VAR_OUT_ERROR_CODE_8235:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }                    
-                case MessageNumber::VAR_out_load_fanrpm1_823d:
+                case MessageNumber::VAR_OUT_LOAD_FANRPM1_823D:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }                
-                case MessageNumber::VAR_out_sensor_top1_8280:
+                case MessageNumber::VAR_OUT_SENSOR_TOP1_8280:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }                
-                case MessageNumber::LVAR_out_8411:
+                case MessageNumber::LVAR_OUT_8411:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
@@ -704,7 +704,7 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 } 
-                case MessageNumber::LVAR_out_8414:
+                case MessageNumber::LVAR_OUT_8414:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
