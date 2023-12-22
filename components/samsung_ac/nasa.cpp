@@ -494,14 +494,14 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_OPERATION_MODE_4001:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_operation_mode_4001 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     target->set_mode(packet_.sa.to_string(), operation_mode_to_mode(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_OPERATION_MODE_REAL_4002:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                case MessageNumber::ENUM_IN_FAN_MODE_REAL:
@@ -532,7 +532,7 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_WATER_HEATER_MODE_4066:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_BACKUP_HEATER_406C:
@@ -557,7 +557,7 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_WATERPUMP_PWM_VALUE_40C4:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_TARGET_F_4201: // unit = 'Celsius' from XML
@@ -671,12 +671,12 @@ namespace esphome
                 }                    
                 case MessageNumber::ENUM_OUT_OPERATION_SERVICE_OP_8000:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_OUT_OPERATION_ODU_MODE_8001:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::VAR_OUT_ERROR_CODE_8235:
