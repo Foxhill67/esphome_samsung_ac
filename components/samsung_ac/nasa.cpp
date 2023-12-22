@@ -537,7 +537,7 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_BACKUP_HEATER_406C:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_OUTING_MODE_406D:
