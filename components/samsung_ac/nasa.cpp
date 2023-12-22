@@ -601,6 +601,12 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
+                case MessageNumber::VAR_IN_420C:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    continue;
+                }
                 case MessageNumber::VAR_IN_TEMP_WATER_HEATER_TARGET_F_4235:
                 {
                     double temp = (double)message.value / (double)10;
@@ -677,6 +683,12 @@ namespace esphome
                 case MessageNumber::ENUM_OUT_OPERATION_ODU_MODE_8001:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }
+                case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
+                {
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_OUT_ERROR_CODE_8235:
