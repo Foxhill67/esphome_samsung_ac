@@ -713,7 +713,8 @@ namespace esphome
                 }                
                 case MessageNumber::VAR_OUT_SENSOR_TOP1_8280:
                 {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    double temp = (double)message.value / (double)10;
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }                
                 case MessageNumber::LVAR_OUT_8411:
