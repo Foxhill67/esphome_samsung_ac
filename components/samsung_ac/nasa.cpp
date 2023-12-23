@@ -535,6 +535,11 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
+                case MessageNumber::ENUM_IN_3WAY_VALVE_4067:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }
                 case MessageNumber::ENUM_IN_BACKUP_HEATER_406C:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
