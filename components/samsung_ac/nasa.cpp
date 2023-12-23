@@ -665,6 +665,11 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }                    
+                case MessageNumber::LVAR_IN_4423:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }                    
                 case MessageNumber::LVAR_IN_4424:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));

@@ -103,6 +103,7 @@ namespace esphome
             VAR_IN_TEMP_WATER_LAW_TARGET_F_4248 = 0x4248,
             VAR_IN_TEMP_WATER_LAW_F_427F = 0x427F,
             LVAR_IN_DEVICE_STAUS_HEATPUMP_BOILER_440A = 0x440A,
+            LVAR_IN_4423 = 0x4423,
             LVAR_IN_4424 = 0x4424,
             LVAR_IN_4426 = 0x4426,
             LVAR_IN_4427 = 0x4427,
