@@ -660,6 +660,11 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
+                case MessageNumber::VAR_IN_FLOW_SENSOR_CALC_42E9:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }
                 case MessageNumber::LVAR_IN_DEVICE_STAUS_HEATPUMP_BOILER_440A:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
