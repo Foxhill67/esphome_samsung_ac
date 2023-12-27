@@ -488,20 +488,20 @@ namespace esphome
                 {
                     // XML Enum no value but in Code it adds unit
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_state_humidity_percent %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
-                    target->set_room_humidity(packet_.sa.to_string(), message.value);
+                    //??target->set_room_humidity(packet_.sa.to_string(), message.value);
                     continue;
                 }
                 case MessageNumber::ENUM_IN_OPERATION_POWER:
                 {
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_operation_power %s", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value == 0 ? "off" : "on");
-                    target->set_power(packet_.sa.to_string(), message.value != 0);
+                    //??target->set_power(packet_.sa.to_string(), message.value != 0);
                     continue;
                 }
                 case MessageNumber::ENUM_IN_OPERATION_MODE_4001:
                 {
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_operation_mode_4001 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
-                    target->set_mode(packet_.sa.to_string(), operation_mode_to_mode(message.value));
+                    //??target->set_mode(packet_.sa.to_string(), operation_mode_to_mode(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_OPERATION_MODE_REAL_4002:
@@ -512,7 +512,7 @@ namespace esphome
                case MessageNumber::ENUM_IN_FAN_MODE_REAL:
                 {
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_fan_mode_real %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
-                    target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
+                    //??target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_STATE_THERMO_4028:
@@ -572,98 +572,97 @@ namespace esphome
                 }
                 case MessageNumber::VAR_IN_TEMP_TARGET_F_4201: // unit = 'Celsius' from XML
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     // if (value == 1) value = 'waterOutSetTemp'; //action in xml
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_target_f_4201 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
-                    target->set_target_temperature(packet_.sa.to_string(), temp);
+                    //??target->set_target_temperature(packet_.sa.to_string(), temp);
                     continue;
                 }
                 case MessageNumber::VAR_IN_4202:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_ROOM_F_4203: //  unit = 'Celsius' from XML
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_room_f_4203 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
-                    target->set_room_temperature(packet_.sa.to_string(), temp);
+                    //??target->set_room_temperature(packet_.sa.to_string(), temp);
                     continue;
                 }
                 case MessageNumber::VAR_IN_4204:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_EVA_IN_F_4205:
                 {
-                    // temp might be negative so do not use: double temp = (double)message.value / (double)10;
-                    double temp = unsigned_int_to_signed(message.value)/ (double(10));
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     ESP_LOGW(TAG, "s:%s d:%s VAR_IN_TEMP_EVA_IN_F_4205 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_EVA_OUT_F_4206:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_420C:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_WATER_HEATER_TARGET_F_4235:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_WATER_IN_F_4236:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_WATER_TANK_F_4237:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_WATER_OUT_F_4238:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_WATER_OUT2_F_4239:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_WATER_OUTLET_TARGET_F_4247:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_WATER_LAW_TARGET_F_4248:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_WATER_LAW_F_427F:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
@@ -709,7 +708,7 @@ namespace esphome
                 }
                 case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
@@ -725,7 +724,7 @@ namespace esphome
                 }                
                 case MessageNumber::VAR_OUT_SENSOR_TOP1_8280:
                 {
-                    double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value);
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }                
