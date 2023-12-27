@@ -706,6 +706,16 @@ namespace esphome
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
+                case MessageNumber::ENUM_OUT_DEICE_STEP_INDOOR_8061:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }
+                case MessageNumber::ENUM_OUT_LOAD_BASEHEATER_80AF:
+                {
+                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    continue;
+                }
                 case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
                 {
                     double temp = unsigned_int_to_signed(message.value);
