@@ -598,6 +598,7 @@ namespace esphome
                 {
                     double temp = (double)message.value / (double)10;
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+                    ESP_LOGW(TAG, "s:%s d:%s VAR_IN_TEMP_EVA_IN_F_4205 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_EVA_OUT_F_4206:
