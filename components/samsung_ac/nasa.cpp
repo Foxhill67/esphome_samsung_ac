@@ -18,7 +18,12 @@ namespace esphome
                 return value;
             return value - (int)65535 /*uint16 max*/ - 1.0;
         }
-
+        int unsigned_int_to_signed(int value)
+        {
+            if (value < 32767 /*uint16_t max*/)
+                return value;
+            return value - (int)65535 - 1.0;
+        }
         uint16_t crc16(std::vector<uint8_t> &data, int startIndex, int length)
         {
             uint16_t crc = 0;
@@ -596,7 +601,8 @@ namespace esphome
                 }
                 case MessageNumber::VAR_IN_TEMP_EVA_IN_F_4205:
                 {
-                    double temp = (double)message.value / (double)10;
+                    // temp might be negative so do not use: double temp = (double)message.value / (double)10;
+                    double temp = unsigned_int_to_signed(message.value)/ (double(10));
                     debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     ESP_LOGW(TAG, "s:%s d:%s VAR_IN_TEMP_EVA_IN_F_4205 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     continue;
