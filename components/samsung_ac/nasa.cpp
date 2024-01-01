@@ -713,7 +713,7 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_OUT_LOAD_BASEHEATER_80AF:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
                     continue;
                 }
                 case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
