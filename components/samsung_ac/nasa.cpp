@@ -357,6 +357,285 @@ namespace esphome
             return packet.encode();
         }
 
+        bool isEHSMessageNumber(uint16_t value) {
+        // List of relevant EHS enum values
+            static const std::initializer_list<MessageNumber> validValues = {
+				MessageNumber::VAR_AD_ERROR_CODE1_202,
+				MessageNumber::VAR_AD_INSTALL_NUMBER_INDOOR_207,
+				MessageNumber::ENUM_NM_2004,
+				MessageNumber::ENUM_NM_2012,
+				MessageNumber::VAR_NM_22F7,
+				MessageNumber::VAR_NM_22F9,
+				MessageNumber::VAR_NM_22FA,
+				MessageNumber::VAR_NM_22FB,
+				MessageNumber::VAR_NM_22FC,
+				MessageNumber::VAR_NM_22FD,
+				MessageNumber::VAR_NM_22FE,
+				MessageNumber::VAR_NM_22FF,
+				MessageNumber::LVAR_NM_2400,
+				MessageNumber::LVAR_NM_2401,
+				MessageNumber::LVAR_NM_24FB,
+				MessageNumber::LVAR_NM_24FC,
+				MessageNumber::LVAR_AD_ADDRESS_RMC_402,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_ALL_409,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_OPERATION_POWER_40A,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_OPERATION_MODE_40B,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_FAN_MODE_40C,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_FAN_DIRECTION_40D,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_TEMP_TARGET_40E,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_OPERATION_MODE_ONLY_410,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_COOL_MODE_UPPER_411,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_COOL_MODE_LOWER_412,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_HEAT_MODE_UPPER_413,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_HEAT_MODE_LOWER_414,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_CONTACT_CONTROL_415,
+				MessageNumber::LVAR_AD_INSTALL_LEVEL_KEY_OPERATION_INPUT_416,
+				MessageNumber::LVAR_AD_417,
+				MessageNumber::LVAR_AD_418,
+				MessageNumber::LVAR_AD_419,
+				MessageNumber::LVAR_AD_41B,
+				MessageNumber::ENUM_IN_OPERATION_POWER_4000,
+				MessageNumber::ENUM_IN_OPERATION_MODE_4001,
+				MessageNumber::ENUM_IN_OPERATION_MODE_REAL_4002,
+				MessageNumber::ENUM_IN_FAN_MODE_4006,
+				MessageNumber::ENUM_IN_FAN_MODE_REAL_4007,
+				MessageNumber::ENUM_IN_400F,
+				MessageNumber::ENUM_IN_4010,
+				MessageNumber::ENUM_IN_4015,
+				MessageNumber::ENUM_IN_4019,
+				MessageNumber::ENUM_IN_401B,
+				MessageNumber::ENUM_IN_4023,
+				MessageNumber::ENUM_IN_4024,
+				MessageNumber::ENUM_IN_4027,
+				MessageNumber::ENUM_IN_STATE_THERMO_4028,
+				MessageNumber::ENUM_IN_4029,
+				MessageNumber::ENUM_IN_402A,
+				MessageNumber::ENUM_IN_402B,
+				MessageNumber::ENUM_IN_402D,
+				MessageNumber::ENUM_IN_STATE_DEFROST_MODE_402E,
+				MessageNumber::ENUM_IN_4031,
+				MessageNumber::ENUM_IN_4035,
+				MessageNumber::ENUM_IN_STATE_HUMIDITY_PERCENT_4038,
+				MessageNumber::ENUM_IN_4043,
+				MessageNumber::ENUM_IN_SILENCE_4046,
+				MessageNumber::ENUM_IN_4047,
+				MessageNumber::ENUM_IN_4048,
+				MessageNumber::ENUM_IN_404F,
+				MessageNumber::ENUM_IN_4051,
+				MessageNumber::ENUM_IN_4059,
+				MessageNumber::ENUM_IN_405F,
+				MessageNumber::ENUM_IN_ALTERNATIVE_MODE_4060,
+				MessageNumber::ENUM_IN_WATER_HEATER_POWER_4065,
+				MessageNumber::ENUM_IN_WATER_HEATER_MODE_4066,
+				MessageNumber::ENUM_IN_3WAY_VALVE_4067,
+				MessageNumber::ENUM_IN_SOLAR_PUMP_4068,
+				MessageNumber::ENUM_IN_THERMOSTAT1_4069,
+				MessageNumber::ENUM_IN_THERMOSTAT2_406A,
+				MessageNumber::ENUM_IN_406B,
+				MessageNumber::ENUM_IN_BACKUP_HEATER_406C,
+				MessageNumber::ENUM_IN_OUTING_MODE_406D,
+				MessageNumber::ENUM_IN_REFERENCE_EHS_TEMP_406F,
+				MessageNumber::ENUM_IN_DISCHAGE_TEMP_CONTROL_4070,
+				MessageNumber::ENUM_IN_4073,
+				MessageNumber::ENUM_IN_4074,
+				MessageNumber::ENUM_IN_4077,
+				MessageNumber::ENUM_IN_407B,
+				MessageNumber::ENUM_IN_407D,
+				MessageNumber::ENUM_IN_LOUVER_LR_SWING_407E,
+				MessageNumber::ENUM_IN_4085,
+				MessageNumber::ENUM_IN_4086,
+				MessageNumber::ENUM_IN_BOOSTER_HEATER_4087,
+				MessageNumber::ENUM_IN_STATE_WATER_PUMP_4089,
+				MessageNumber::ENUM_IN_2WAY_VALVE_408A,
+				MessageNumber::ENUM_IN_FSV_2091_4095,
+				MessageNumber::ENUM_IN_FSV_2092_4096,
+				MessageNumber::ENUM_IN_FSV_3011_4097,
+				MessageNumber::ENUM_IN_FSV_3041_4099,
+				MessageNumber::ENUM_IN_FSV_3042_409A,
+				MessageNumber::ENUM_IN_FSV_3061_409C,
+				MessageNumber::ENUM_IN_FSV_5061_40B4,
+				MessageNumber::ENUM_IN_40B5,
+				MessageNumber::ENUM_IN_WATERPUMP_PWM_VALUE_40C4,
+				MessageNumber::ENUM_IN_THERMOSTAT_WATER_HEATER_40C5,
+				MessageNumber::ENUM_IN_40C6,
+				MessageNumber::ENUM_IN_4117,
+				MessageNumber::ENUM_IN_FSV_4061_411A,
+				MessageNumber::ENUM_IN_OPERATION_POWER_ZONE2_411E,
+				MessageNumber::ENUM_IN_SG_READY_MODE_STATE_4124,
+				MessageNumber::ENUM_IN_FSV_LOAD_SAVE_4125,
+				MessageNumber::ENUM_IN_FSV_2093_4127,
+				MessageNumber::ENUM_IN_FSV_5022_4128,
+				MessageNumber::VAR_IN_TEMP_TARGET_F_4201,
+				MessageNumber::VAR_IN_TEMP_4202,
+				MessageNumber::VAR_IN_TEMP_ROOM_F_4203,
+				MessageNumber::VAR_IN_TEMP_4204,
+				MessageNumber::VAR_IN_TEMP_EVA_IN_F_4205,
+				MessageNumber::VAR_IN_TEMP_EVA_OUT_F_4206,
+				MessageNumber::VAR_IN_TEMP_420C,
+				MessageNumber::VAR_IN_CAPACITY_REQUEST_4211,
+				MessageNumber::VAR_IN_CAPACITY_ABSOLUTE_4212,
+				MessageNumber::VAR_IN_4213,
+				MessageNumber::VAR_IN_EEV_VALUE_REAL_1_4217,
+				MessageNumber::VAR_IN_MODEL_INFORMATION_4229,
+				MessageNumber::VAR_IN_TEMP_WATER_HEATER_TARGET_F_4235,
+				MessageNumber::VAR_IN_TEMP_WATER_IN_F_4236,
+				MessageNumber::VAR_IN_TEMP_WATER_TANK_F_4237,
+				MessageNumber::VAR_IN_TEMP_WATER_OUT_F_4238,
+				MessageNumber::VAR_IN_TEMP_WATER_OUT2_F_4239,
+				MessageNumber::VAR_IN_423E,
+				MessageNumber::VAR_IN_TEMP_WATER_OUTLET_TARGET_F_4247,
+				MessageNumber::VAR_IN_TEMP_WATER_LAW_TARGET_F_4248,
+				MessageNumber::VAR_IN_FSV_1011_424A,
+				MessageNumber::VAR_IN_FSV_1012_424B,
+				MessageNumber::VAR_IN_FSV_1021_424C,
+				MessageNumber::VAR_IN_FSV_1022_424D,
+				MessageNumber::VAR_IN_FSV_1031_424E,
+				MessageNumber::VAR_IN_FSV_1032_424F,
+				MessageNumber::VAR_IN_FSV_1041_4250,
+				MessageNumber::VAR_IN_FSV_1042_4251,
+				MessageNumber::VAR_IN_FSV_1051_4252,
+				MessageNumber::VAR_IN_FSV_1052_4253,
+				MessageNumber::VAR_IN_FSV_3043_4269,
+				MessageNumber::VAR_IN_FSV_3044_426A,
+				MessageNumber::VAR_IN_FSV_3045_426B,
+				MessageNumber::VAR_IN_FSV_5011_4273,
+				MessageNumber::VAR_IN_FSV_5012_4274,
+				MessageNumber::VAR_IN_FSV_5013_4275,
+				MessageNumber::VAR_IN_FSV_5014_4276,
+				MessageNumber::VAR_IN_FSV_5015_4277,
+				MessageNumber::VAR_IN_FSV_5016_4278,
+				MessageNumber::VAR_IN_FSV_5017_4279,
+				MessageNumber::VAR_IN_FSV_5018_427A,
+				MessageNumber::VAR_IN_FSV_5019_427B,
+				MessageNumber::VAR_IN_TEMP_WATER_LAW_F_427F,
+				MessageNumber::VAR_IN_TEMP_MIXING_VALVE_F_428C,
+				MessageNumber::VAR_IN_428D,
+				MessageNumber::VAR_IN_FSV_3046_42CE,
+				MessageNumber::VAR_IN_TEMP_ZONE2_F_42D4,
+				MessageNumber::VAR_IN_TEMP_TARGET_ZONE2_F_42D6,
+				MessageNumber::VAR_IN_TEMP_WATER_OUTLET_TARGET_ZONE2_F_42D7,
+				MessageNumber::VAR_IN_TEMP_WATER_OUTLET_ZONE1_F_42D8,
+				MessageNumber::VAR_IN_TEMP_WATER_OUTLET_ZONE2_F_42D9,
+				MessageNumber::VAR_IN_FLOW_SENSOR_VOLTAGE_42E8,
+				MessageNumber::VAR_IN_FLOW_SENSOR_CALC_42E9,
+				MessageNumber::VAR_IN_42F1,
+				MessageNumber::VAR_IN_4301,
+				MessageNumber::LVAR_IN_4401,
+				MessageNumber::LVAR_IN_DEVICE_STAUS_HEATPUMP_BOILER_440A,
+				MessageNumber::LVAR_IN_440E,
+				MessageNumber::LVAR_IN_440F,
+				MessageNumber::LVAR_IN_4423,
+				MessageNumber::LVAR_IN_4424,
+				MessageNumber::LVAR_IN_4426,
+				MessageNumber::LVAR_IN_4427,
+				MessageNumber::ENUM_OUT_OPERATION_SERVICE_OP_8000,
+				MessageNumber::ENUM_OUT_OPERATION_ODU_MODE_8001,
+				MessageNumber::ENUM_OUT_8002,
+				MessageNumber::ENUM_OUT_OPERATION_HEATCOOL_8003,
+				MessageNumber::ENUM_OUT_8005,
+				MessageNumber::ENUM_OUT_800D,
+				MessageNumber::ENUM_OUT_LOAD_COMP1_8010,
+				MessageNumber::ENUM_OUT_LOAD_HOTGAS_8017,
+				MessageNumber::ENUM_OUT_LOAD_4WAY_801A,
+				MessageNumber::ENUM_OUT_LOAD_OUTEEV_8020,
+				MessageNumber::ENUM_OUT_8031,
+				MessageNumber::ENUM_OUT_8032,
+				MessageNumber::ENUM_OUT_8033,
+				MessageNumber::ENUM_OUT_803F,
+				MessageNumber::ENUM_OUT_8043,
+				MessageNumber::ENUM_OUT_8045,
+				MessageNumber::ENUM_OUT_OP_TEST_OP_COMPLETE_8046,
+				MessageNumber::ENUM_OUT_8047,
+				MessageNumber::ENUM_OUT_8048,
+				MessageNumber::ENUM_OUT_805E,
+				MessageNumber::ENUM_OUT_DEICE_STEP_INDOOR_8061,
+				MessageNumber::ENUM_OUT_8066,
+				MessageNumber::ENUM_OUT_8077,
+				MessageNumber::ENUM_OUT_8079,
+				MessageNumber::ENUM_OUT_807C,
+				MessageNumber::ENUM_OUT_807D,
+				MessageNumber::ENUM_OUT_807E,
+				MessageNumber::ENUM_OUT_8081,
+				MessageNumber::ENUM_OUT_808C,
+				MessageNumber::ENUM_OUT_808D,
+				MessageNumber::ENUM_OUT_OP_CHECK_REF_STEP_808E,
+				MessageNumber::ENUM_OUT_808F,
+				MessageNumber::ENUM_OUT_80A8,
+				MessageNumber::ENUM_OUT_80A9,
+				MessageNumber::ENUM_OUT_80AA,
+				MessageNumber::ENUM_OUT_80AB,
+				MessageNumber::ENUM_OUT_80AE,
+				MessageNumber::ENUM_OUT_LOAD_BASEHEATER_80AF,
+				MessageNumber::ENUM_OUT_80B1,
+				MessageNumber::ENUM_OUT_80CE,
+				MessageNumber::VAR_OUT_8200,
+				MessageNumber::VAR_OUT_8201,
+				MessageNumber::VAR_OUT_INSTALL_COMP_NUM_8202,
+				MessageNumber::VAR_OUT_SENSOR_AIROUT_8204,
+				MessageNumber::VAR_OUT_SENSOR_HIGHPRESS_8206,
+				MessageNumber::VAR_OUT_SENSOR_LOWPRESS_8208,
+				MessageNumber::VAR_OUT_SENSOR_DISCHARGE1_820A,
+				MessageNumber::VAR_OUT_SENSOR_CT1_8217,
+				MessageNumber::VAR_OUT_SENSOR_CONDOUT_8218,
+				MessageNumber::VAR_OUT_SENSOR_SUCTION_821A,
+				MessageNumber::VAR_OUT_CONTROL_TARGET_DISCHARGE_8223,
+				MessageNumber::VAR_OUT_8225,
+				MessageNumber::VAR_OUT_LOAD_OUTEEV1_8229,
+				MessageNumber::VAR_OUT_LOAD_OUTEEV4_822C,
+				MessageNumber::VAR_OUT_8233,
+				MessageNumber::VAR_OUT_ERROR_CODE_8235,
+				MessageNumber::VAR_OUT_CONTROL_ORDER_CFREQ_COMP1_8236,
+				MessageNumber::VAR_OUT_CONTROL_TARGET_CFREQ_COMP1_8237,
+				MessageNumber::VAR_OUT_CONTROL_CFREQ_COMP1_8238,
+				MessageNumber::VAR_OUT_8239,
+				MessageNumber::VAR_OUT_SENSOR_DCLINK_VOLTAGE_823B,
+				MessageNumber::VAR_OUT_LOAD_FANRPM1_823D,
+				MessageNumber::VAR_OUT_LOAD_FANRPM2_823E,
+				MessageNumber::VAR_OUT_823F,
+				MessageNumber::VAR_OUT_8243,
+				MessageNumber::VAR_OUT_8247,
+				MessageNumber::VAR_OUT_824C,
+				MessageNumber::VAR_OUT_8248,
+				MessageNumber::VAR_OUT_CONTROL_REFRIGERANTS_VOLUME_824F,
+				MessageNumber::VAR_OUT_SENSOR_IPM1_8254,
+				MessageNumber::VAR_OUT_CONTROL_ORDER_CFREQ_COMP2_8274,
+				MessageNumber::VAR_OUT_CONTROL_TARGET_CFREQ_COMP2_8275,
+				MessageNumber::VAR_OUT_SENSOR_TOP1_8280,
+				MessageNumber::VAR_OUT_INSTALL_CAPA_8287,
+				MessageNumber::VAR_OUT_SENSOR_SAT_TEMP_HIGH_PRESSURE_829F,
+				MessageNumber::VAR_OUT_SENSOR_SAT_TEMP_LOW_PRESSURE_82A0,
+				MessageNumber::VAR_OUT_82A2,
+				MessageNumber::VAR_OUT_82B5,
+				MessageNumber::VAR_OUT_82B6,
+				MessageNumber::VAR_OUT_PROJECT_CODE_82BC,
+				MessageNumber::VAR_OUT_82D9,
+				MessageNumber::VAR_OUT_82D4,
+				MessageNumber::VAR_OUT_82DA,
+				MessageNumber::VAR_OUT_PHASE_CURRENT_82DB,
+				MessageNumber::VAR_OUT_82DC,
+				MessageNumber::VAR_OUT_82DD,
+				MessageNumber::VAR_OUT_SENSOR_EVAIN_82DE,
+				MessageNumber::VAR_OUT_SENSOR_TW1_82DF,
+				MessageNumber::VAR_OUT_SENSOR_TW2_82E0,
+				MessageNumber::VAR_OUT_82E1,
+				MessageNumber::VAR_OUT_PRODUCT_OPTION_CAPA_82E3,
+				MessageNumber::VAR_OUT_82ED,
+				MessageNumber::LVAR_OUT_LOAD_COMP1_RUNNING_TIME_8405,
+				MessageNumber::LVAR_OUT_8406,
+				MessageNumber::LVAR_OUT_8408,
+				MessageNumber::LVAR_OUT_840F,
+				MessageNumber::LVAR_OUT_8410,
+				MessageNumber::LVAR_OUT_8411,
+				MessageNumber::LVAR_OUT_CONTROL_WATTMETER_1W_1MIN_SUM_8413,
+				MessageNumber::LVAR_OUT_8414,
+				MessageNumber::LVAR_OUT_8417,
+				MessageNumber::LVAR_OUT_841F,
+            };
+
+        // Check if the value is in the list
+            return std::find(validValues.begin(), validValues.end(), static_cast<MessageNumber>(value)) != validValues.end();
+        }
+
         int fanmode_to_nasa_fanmode(FanMode mode)
         {
             // This stuff did not exists in XML only in Remcode.dll
@@ -481,6 +760,42 @@ namespace esphome
                         }
                     }
                 }
+
+                if (isEHSMessageNumber(message.messageNumber)
+                {
+                	switch (message.messageNumber)
+                	{		
+						// some need conversion to signed
+						case MessageNumber::VAR_IN_TEMP_TARGET_F_4201:
+                		case MessageNumber::VAR_IN_TEMP_4202:
+						case MessageNumber::VAR_IN_TEMP_ROOM_F_4203: 
+		                case MessageNumber::VAR_IN_TEMP_4204:
+        		        case MessageNumber::VAR_IN_TEMP_EVA_IN_F_4205:
+                		case MessageNumber::VAR_IN_TEMP_EVA_OUT_F_4206:
+          			    case MessageNumber::VAR_IN_TEMP_420C:
+                		case MessageNumber::VAR_IN_TEMP_WATER_HEATER_TARGET_F_4235:
+                		case MessageNumber::VAR_IN_TEMP_WATER_IN_F_4236:
+                		case MessageNumber::VAR_IN_TEMP_WATER_TANK_F_4237:
+                		case MessageNumber::VAR_IN_TEMP_WATER_OUT_F_4238:
+        		        case MessageNumber::VAR_IN_TEMP_WATER_OUT2_F_4239:
+		                case MessageNumber::VAR_IN_TEMP_WATER_OUTLET_TARGET_F_4247:
+                		case MessageNumber::VAR_IN_TEMP_WATER_LAW_TARGET_F_4248:
+                		case MessageNumber::VAR_IN_TEMP_WATER_LAW_F_427F:
+                		case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
+                		case MessageNumber::VAR_OUT_SENSOR_TOP1_8280:
+                		{
+                    		double temp = unsigned_int_to_signed(message.value);
+                            debug_mqtt_publish("homeassistant/samsung_ehs/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
+							break;
+						}
+						default:	
+						{																																
+                    		debug_mqtt_publish("homeassistant/samsung_ehs/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+							break;
+						}	
+					}																																																			
+                } 
+
                 switch (message.messageNumber)
                 {
 
@@ -499,260 +814,37 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_OPERATION_MODE_4001:
                 {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_operation_mode_4001 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     //??target->set_mode(packet_.sa.to_string(), operation_mode_to_mode(message.value));
                     continue;
                 }
-                case MessageNumber::ENUM_IN_OPERATION_MODE_REAL_4002:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-               case MessageNumber::ENUM_IN_FAN_MODE_REAL_4007:
+                case MessageNumber::ENUM_IN_FAN_MODE_REAL_4007:
                 {
                     ESP_LOGW(TAG, "s:%s d:%s ENUM_in_fan_mode_real %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     //??target->set_fanmode(packet_.sa.to_string(), fan_mode_real_to_fanmode(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_STATE_THERMO_4028:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_STATE_DEFROST_MODE_402E:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_SILENCE_4046:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_WATER_HEATER_POWER_4065:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_WATER_HEATER_MODE_4066:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_3WAY_VALVE_4067:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_BACKUP_HEATER_406C:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_OUTING_MODE_406D:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_BOOSTER_HEATER_4087:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_STATE_WATER_PUMP_4089:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_IN_WATERPUMP_PWM_VALUE_40C4:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_TARGET_F_4201: // unit = 'Celsius' from XML
                 {
                     double temp = unsigned_int_to_signed(message.value);
                     // if (value == 1) value = 'waterOutSetTemp'; //action in xml
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_target_f_4201 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
                     //??target->set_target_temperature(packet_.sa.to_string(), temp);
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_4202:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_ROOM_F_4203: //  unit = 'Celsius' from XML
                 {
                     double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_room_f_4203 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
                     //??target->set_room_temperature(packet_.sa.to_string(), temp);
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_4204:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_EVA_IN_F_4205:
                 {
                     double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    ESP_LOGW(TAG, "s:%s d:%s VAR_IN_TEMP_EVA_IN_F_4205 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
+                    ESP_LOGW(TAG, "s:%s d:%s VAR_IN_TEMP_EVA_IN_F_4205 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
                     continue;
                 }
-                case MessageNumber::VAR_IN_TEMP_EVA_OUT_F_4206:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_420C:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_WATER_HEATER_TARGET_F_4235:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_WATER_IN_F_4236:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_WATER_TANK_F_4237:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_WATER_OUT_F_4238:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_WATER_OUT2_F_4239:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_WATER_OUTLET_TARGET_F_4247:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_WATER_LAW_TARGET_F_4248:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_TEMP_WATER_LAW_F_427F:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_IN_FLOW_SENSOR_CALC_42E9:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::LVAR_IN_DEVICE_STAUS_HEATPUMP_BOILER_440A:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }                    
-                case MessageNumber::LVAR_IN_4423:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }                    
-                case MessageNumber::LVAR_IN_4424:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }                    
-                case MessageNumber::LVAR_IN_4426:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }                    
-                case MessageNumber::LVAR_IN_4427:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }                    
-                case MessageNumber::ENUM_OUT_OPERATION_SERVICE_OP_8000:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_OUT_OPERATION_ODU_MODE_8001:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_OUT_DEICE_STEP_INDOOR_8061:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::ENUM_OUT_LOAD_BASEHEATER_80AF:
-                {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }
-                case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }
-                case MessageNumber::VAR_OUT_ERROR_CODE_8235:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }                    
-                case MessageNumber::VAR_OUT_LOAD_FANRPM1_823D:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                }                
-                case MessageNumber::VAR_OUT_SENSOR_TOP1_8280:
-                {
-                    double temp = unsigned_int_to_signed(message.value);
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/var/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
-                    continue;
-                }                
-                case MessageNumber::LVAR_OUT_8411:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                } 
-                case MessageNumber::LVAR_OUT_CONTROL_WATTMETER_1W_1MIN_SUM_8413:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                } 
-                case MessageNumber::LVAR_OUT_8414:
-                {
-                    debug_mqtt_publish("homeassistant/sensor/samsung_ehs/lvar/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-                    continue;
-                } 
                 default:
                 {
 

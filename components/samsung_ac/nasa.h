@@ -238,7 +238,6 @@ namespace esphome
             LVAR_IN_4424 = 0x4424,
             LVAR_IN_4426 = 0x4426,
             LVAR_IN_4427 = 0x4427,
-            STR_IN_INSTALL_INDOOR_SETUP_INFO_4604 = 0x4604,
             ENUM_OUT_OPERATION_SERVICE_OP_8000 = 0x8000,
             ENUM_OUT_OPERATION_ODU_MODE_8001 = 0x8001,
             ENUM_OUT_8002 = 0x8002,
