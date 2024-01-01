@@ -517,22 +517,22 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_STATE_THERMO_4028:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_STATE_DEFROST_MODE_402E:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_SILENCE_4046:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_WATER_HEATER_POWER_4065:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_WATER_HEATER_MODE_4066:
@@ -552,17 +552,17 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_IN_OUTING_MODE_406D:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_BOOSTER_HEATER_4087:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_STATE_WATER_PUMP_4089:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::ENUM_IN_WATERPUMP_PWM_VALUE_40C4:
@@ -713,7 +713,7 @@ namespace esphome
                 }
                 case MessageNumber::ENUM_OUT_LOAD_BASEHEATER_80AF:
                 {
-                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", message.value == 0 ? "OFF" : "ON");
+                    debug_mqtt_publish("homeassistant/binary_sensor/samsung_ehs/enum/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
                     continue;
                 }
                 case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
