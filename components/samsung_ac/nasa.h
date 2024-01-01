@@ -120,7 +120,7 @@ namespace esphome
             ENUM_IN_4029 = 0x4029,
             ENUM_IN_402A = 0x402A,
             ENUM_IN_402B = 0x402B,
-            ENUM_IN_402D = 0x402C,
+            ENUM_IN_402D = 0x402D,
             ENUM_IN_STATE_DEFROST_MODE_402E = 0x402E,
             ENUM_IN_4031 = 0x4031,
             ENUM_IN_4035 = 0x4035,
