@@ -485,7 +485,7 @@ namespace esphome
 				// send relevant EHS messages via MQTT to HomeAssistant
                	switch (message.messageNumber)
 				{		
-					// all temperature messages need conversion to signed
+					// all signed VAR messages need conversion to signed TODO: fix sign in message.value already
 					case MessageNumber::VAR_IN_TEMP_TARGET_F_4201:
 					case MessageNumber::VAR_IN_TEMP_4202:
 					case MessageNumber::VAR_IN_TEMP_ROOM_F_4203: 
@@ -500,6 +500,27 @@ namespace esphome
 					case MessageNumber::VAR_IN_TEMP_WATER_OUT2_F_4239:
 					case MessageNumber::VAR_IN_TEMP_WATER_OUTLET_TARGET_F_4247:
 					case MessageNumber::VAR_IN_TEMP_WATER_LAW_TARGET_F_4248:
+					case MessageNumber::VAR_IN_FSV_1011_424A:
+					case MessageNumber::VAR_IN_FSV_1012_424B:
+					case MessageNumber::VAR_IN_FSV_1021_424C:
+					case MessageNumber::VAR_IN_FSV_1022_424D:
+					case MessageNumber::VAR_IN_FSV_1031_424E:
+					case MessageNumber::VAR_IN_FSV_1032_424F:
+					case MessageNumber::VAR_IN_FSV_1041_4250:
+					case MessageNumber::VAR_IN_FSV_1042_4251:
+					case MessageNumber::VAR_IN_FSV_1051_4252:
+					case MessageNumber::VAR_IN_FSV_1052_4253:
+					case MessageNumber::VAR_IN_FSV_3044_426A:
+					case MessageNumber::VAR_IN_FSV_3045_426B:
+					case MessageNumber::VAR_IN_FSV_5011_4273:
+					case MessageNumber::VAR_IN_FSV_5012_4274:
+					case MessageNumber::VAR_IN_FSV_5013_4275:
+					case MessageNumber::VAR_IN_FSV_5014_4276:
+					case MessageNumber::VAR_IN_FSV_5015_4277:
+					case MessageNumber::VAR_IN_FSV_5016_4278:
+					case MessageNumber::VAR_IN_FSV_5017_4279:
+					case MessageNumber::VAR_IN_FSV_5018_427A:
+					case MessageNumber::VAR_IN_FSV_5019_427B:
 					case MessageNumber::VAR_IN_TEMP_WATER_LAW_F_427F:
 					case MessageNumber::VAR_IN_TEMP_MIXING_VALVE_F_428C:
 					case MessageNumber::VAR_IN_TEMP_ZONE2_F_42D4:
@@ -507,8 +528,22 @@ namespace esphome
 					case MessageNumber::VAR_IN_TEMP_WATER_OUTLET_TARGET_ZONE2_F_42D7:
 					case MessageNumber::VAR_IN_TEMP_WATER_OUTLET_ZONE1_F_42D8:
 					case MessageNumber::VAR_IN_TEMP_WATER_OUTLET_ZONE2_F_42D9:
+					case MessageNumber::VAR_IN_FLOW_SENSOR_CALC_42E9:
 					case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
+					case MessageNumber::VAR_OUT_SENSOR_HIGHPRESS_8206:
+					case MessageNumber::VAR_OUT_SENSOR_LOWPRESS_8208:
+					case MessageNumber::VAR_OUT_SENSOR_DISCHARGE1_820A:
+					case MessageNumber::VAR_OUT_SENSOR_CONDOUT_8218:
+					case MessageNumber::VAR_OUT_SENSOR_SUCTION_821A:
+					case MessageNumber::VAR_OUT_CONTROL_TARGET_DISCHARGE_8223:
+					case MessageNumber::VAR_OUT_SENSOR_IPM1_8254:
 					case MessageNumber::VAR_OUT_SENSOR_TOP1_8280:
+					case MessageNumber::VAR_OUT_SENSOR_SAT_TEMP_HIGH_PRESSURE_829F:
+					case MessageNumber::VAR_OUT_SENSOR_SAT_TEMP_LOW_PRESSURE_82A0:
+					case MessageNumber::VAR_OUT_PROJECT_CODE_82BC:
+					case MessageNumber::VAR_OUT_SENSOR_EVAIN_82DE:
+					case MessageNumber::VAR_OUT_SENSOR_TW1_82DF:
+					case MessageNumber::VAR_OUT_SENSOR_TW2_82E0:
 					{
 						double temp = unsigned_int_to_signed(message.value);
 						debug_mqtt_publish("homeassistant/samsung_ehs/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(temp));
@@ -625,32 +660,10 @@ namespace esphome
 					case MessageNumber::VAR_IN_EEV_VALUE_REAL_1_4217:
 					case MessageNumber::VAR_IN_MODEL_INFORMATION_4229:
 					case MessageNumber::VAR_IN_423E:
-					case MessageNumber::VAR_IN_FSV_1011_424A:
-					case MessageNumber::VAR_IN_FSV_1012_424B:
-					case MessageNumber::VAR_IN_FSV_1021_424C:
-					case MessageNumber::VAR_IN_FSV_1022_424D:
-					case MessageNumber::VAR_IN_FSV_1031_424E:
-					case MessageNumber::VAR_IN_FSV_1032_424F:
-					case MessageNumber::VAR_IN_FSV_1041_4250:
-					case MessageNumber::VAR_IN_FSV_1042_4251:
-					case MessageNumber::VAR_IN_FSV_1051_4252:
-					case MessageNumber::VAR_IN_FSV_1052_4253:
 					case MessageNumber::VAR_IN_FSV_3043_4269:
-					case MessageNumber::VAR_IN_FSV_3044_426A:
-					case MessageNumber::VAR_IN_FSV_3045_426B:
-					case MessageNumber::VAR_IN_FSV_5011_4273:
-					case MessageNumber::VAR_IN_FSV_5012_4274:
-					case MessageNumber::VAR_IN_FSV_5013_4275:
-					case MessageNumber::VAR_IN_FSV_5014_4276:
-					case MessageNumber::VAR_IN_FSV_5015_4277:
-					case MessageNumber::VAR_IN_FSV_5016_4278:
-					case MessageNumber::VAR_IN_FSV_5017_4279:
-					case MessageNumber::VAR_IN_FSV_5018_427A:
-					case MessageNumber::VAR_IN_FSV_5019_427B:
 					case MessageNumber::VAR_IN_428D:
 					case MessageNumber::VAR_IN_FSV_3046_42CE:
 					case MessageNumber::VAR_IN_FLOW_SENSOR_VOLTAGE_42E8:
-					case MessageNumber::VAR_IN_FLOW_SENSOR_CALC_42E9:
 					case MessageNumber::VAR_IN_42F1:
 					case MessageNumber::VAR_IN_4301:
 					case MessageNumber::LVAR_IN_4401:
@@ -704,14 +717,7 @@ namespace esphome
 					case MessageNumber::VAR_OUT_8200:
 					case MessageNumber::VAR_OUT_8201:
 					case MessageNumber::VAR_OUT_INSTALL_COMP_NUM_8202:
-					case MessageNumber::VAR_OUT_SENSOR_AIROUT_8204:
-					case MessageNumber::VAR_OUT_SENSOR_HIGHPRESS_8206:
-					case MessageNumber::VAR_OUT_SENSOR_LOWPRESS_8208:
-					case MessageNumber::VAR_OUT_SENSOR_DISCHARGE1_820A:
 					case MessageNumber::VAR_OUT_SENSOR_CT1_8217:
-					case MessageNumber::VAR_OUT_SENSOR_CONDOUT_8218:
-					case MessageNumber::VAR_OUT_SENSOR_SUCTION_821A:
-					case MessageNumber::VAR_OUT_CONTROL_TARGET_DISCHARGE_8223:
 					case MessageNumber::VAR_OUT_8225:
 					case MessageNumber::VAR_OUT_LOAD_OUTEEV1_8229:
 					case MessageNumber::VAR_OUT_LOAD_OUTEEV4_822C:
@@ -730,26 +736,18 @@ namespace esphome
 					case MessageNumber::VAR_OUT_824C:
 					case MessageNumber::VAR_OUT_8248:
 					case MessageNumber::VAR_OUT_CONTROL_REFRIGERANTS_VOLUME_824F:
-					case MessageNumber::VAR_OUT_SENSOR_IPM1_8254:
 					case MessageNumber::VAR_OUT_CONTROL_ORDER_CFREQ_COMP2_8274:
 					case MessageNumber::VAR_OUT_CONTROL_TARGET_CFREQ_COMP2_8275:
-					case MessageNumber::VAR_OUT_SENSOR_TOP1_8280:
 					case MessageNumber::VAR_OUT_INSTALL_CAPA_8287:
-					case MessageNumber::VAR_OUT_SENSOR_SAT_TEMP_HIGH_PRESSURE_829F:
-					case MessageNumber::VAR_OUT_SENSOR_SAT_TEMP_LOW_PRESSURE_82A0:
 					case MessageNumber::VAR_OUT_82A2:
 					case MessageNumber::VAR_OUT_82B5:
 					case MessageNumber::VAR_OUT_82B6:
-					case MessageNumber::VAR_OUT_PROJECT_CODE_82BC:
 					case MessageNumber::VAR_OUT_82D9:
 					case MessageNumber::VAR_OUT_82D4:
 					case MessageNumber::VAR_OUT_82DA:
 					case MessageNumber::VAR_OUT_PHASE_CURRENT_82DB:
 					case MessageNumber::VAR_OUT_82DC:
 					case MessageNumber::VAR_OUT_82DD:
-					case MessageNumber::VAR_OUT_SENSOR_EVAIN_82DE:
-					case MessageNumber::VAR_OUT_SENSOR_TW1_82DF:
-					case MessageNumber::VAR_OUT_SENSOR_TW2_82E0:
 					case MessageNumber::VAR_OUT_82E1:
 					case MessageNumber::VAR_OUT_PRODUCT_OPTION_CAPA_82E3:
 					case MessageNumber::VAR_OUT_82ED:
