@@ -1,5 +1,6 @@
 #include <queue>
 #include <iostream>
+#include <algorithm>
 #include "esphome/core/log.h"
 #include "esphome/core/util.h"
 #include "util.h"
@@ -761,7 +762,7 @@ namespace esphome
                     }
                 }
 
-                if (isEHSMessageNumber(message.messageNumber)
+                if (isEHSMessageNumber(message.messageNumber))
                 {
                 	switch (message.messageNumber)
                 	{		
