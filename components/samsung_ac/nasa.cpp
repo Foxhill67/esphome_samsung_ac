@@ -790,23 +790,20 @@ namespace esphome
                 }
                 case MessageNumber::VAR_IN_TEMP_TARGET_F_4201: // unit = 'Celsius' from XML
                 {
-                    double temp = unsigned_int_to_signed(message.value);
                     // if (value == 1) value = 'waterOutSetTemp'; //action in xml
-                    ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_target_f_4201 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
+                    ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_target_f_4201 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     //??target->set_target_temperature(packet_.sa.to_string(), temp);
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_ROOM_F_4203: //  unit = 'Celsius' from XML
                 {
-                    double temp = unsigned_int_to_signed(message.value);
-                    ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_room_f_4203 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
+                    ESP_LOGW(TAG, "s:%s d:%s VAR_in_temp_room_f_4203 %f", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     //??target->set_room_temperature(packet_.sa.to_string(), temp);
                     continue;
                 }
                 case MessageNumber::VAR_IN_TEMP_EVA_IN_F_4205:
                 {
-                    double temp = unsigned_int_to_signed(message.value);
-                    ESP_LOGW(TAG, "s:%s d:%s VAR_IN_TEMP_EVA_IN_F_4205 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), temp);
+                    ESP_LOGW(TAG, "s:%s d:%s VAR_IN_TEMP_EVA_IN_F_4205 %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.value);
                     continue;
                 }
                 default:
