@@ -232,13 +232,13 @@ namespace esphome
 
             if (data[data.size() - 1] != 0x34)
             {
-                ESP_LOGV(TAG, "invalid start byte");
+                ESP_LOGV(TAG, "invalid end byte");
                 return false;
             }
 
             if (data.size() < 16 || data.size() > 1500)
             {
-                ESP_LOGV(TAG, "unexpected size - should be graeter then 15 and less then 1500 but is %d", data.size());
+                ESP_LOGV(TAG, "unexpected size - should be greater then 15 and less then 1500 but is %d", data.size());
                 return false;
             }
 
@@ -246,7 +246,7 @@ namespace esphome
 
             if (size + 2 != data.size())
             {
-                ESP_LOGV(TAG, "message size did not match data size - data is %d, message should be %d", size, data.size() - 2);
+                ESP_LOGV(TAG, "message size did not match data size - message says %d, real size is %d", size, data.size() - 2);
                 return false;
             }
 
@@ -254,7 +254,7 @@ namespace esphome
             uint16_t crc_expected = (int)data[data.size() - 3] << 8 | (int)data[data.size() - 2];
             if (crc_expected != crc_actual)
             {
-                ESP_LOGV(TAG, "invalid crc - got %d but should be %d", crc_actual, crc_expected);
+                ESP_LOGV(TAG, "invalid crc - calculated %d but message says %d", crc_actual, crc_expected);
                 return false;
             }
 
