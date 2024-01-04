@@ -115,6 +115,8 @@ namespace esphome
         if (receiving_)
         {
           data_.push_back(c);
+          //REMOVE NEXT LINE!!
+          ESP_LOGW("gelezen char", "write %s", bytes_to_hex(c).c_str());
           if (c != 0x34)
             continue; // endbyte not found
 
