@@ -116,7 +116,7 @@ namespace esphome
         {
           data_.push_back(c);
           //REMOVE NEXT LINE!!
-          ESP_LOGW("gelezen char: ", "%02x", bytes_to_hex(c));
+          ESP_LOGW("gelezen char: ", "%02x", c);
           if (c != 0x34)
             continue; // endbyte not found
 
