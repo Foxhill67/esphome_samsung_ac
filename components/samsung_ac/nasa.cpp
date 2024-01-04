@@ -756,7 +756,7 @@ namespace esphome
 					}	
 					default:	
 					{	
-                         ESP_LOGW(TAG, "Unknown message s:%s d:%s %d %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.messageNumber, message.value);																															
+//                         ESP_LOGW(TAG, "Unknown message s:%s d:%s %d %d", packet_.sa.to_string().c_str(), packet_.da.to_string().c_str(), message.messageNumber, message.value);																															
 						break;
 					}																																																	
                 } 
