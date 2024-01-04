@@ -10,6 +10,8 @@
 #include "protocol.h"
 #include "samsung_ac.h"
 
+static const char *TAG = "samsung_nasa";
+
 namespace esphome
 {
   namespace samsung_ac
