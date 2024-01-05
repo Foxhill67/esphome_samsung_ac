@@ -118,7 +118,6 @@ namespace esphome
         if (receiving_)
         {
           data_.push_back(c);
-          messageBytes++;
           if (messageBytes == 1) // first part of size found
           {
             messageSize1 = c;
@@ -132,8 +131,10 @@ namespace esphome
           }
 //          if (c != 0x34)
 //            continue; // endbyte not found
-          if (messageBytes < messageSize) // not there yet
+
+          if (messageBytes < (messageSize+1)) // not there yet
           {
+            messageBytes++;
             continue; // process next received byte   
           }
           receiving_ = false;
