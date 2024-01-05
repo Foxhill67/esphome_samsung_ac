@@ -106,6 +106,9 @@ namespace esphome
       while (available())
       {
         uint8_t c;
+        uint16_t bytes_ = 0;
+        uint16_t size_ = 0;
+        
         read_byte(&c);
         if (c == 0x32 && !receiving_) // start-byte found
         {
