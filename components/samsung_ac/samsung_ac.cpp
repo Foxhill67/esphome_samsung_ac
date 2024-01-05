@@ -119,6 +119,10 @@ namespace esphome
         {
           data_.push_back(c);
           messageBytes++;
+          if (messageBytes == 1) // start byte found
+          {
+            continue; // process next received byte
+          }
           if (messageBytes == 2) // first part of size found
           {
             messageSize1 = c;
