@@ -111,7 +111,6 @@ namespace esphome
         {
           receiving_ = true;
           messageBytes = 0;
-          messageSize1 = 0;
           messageSize = 0;
           data_.clear();
         }
@@ -119,30 +118,31 @@ namespace esphome
         {
           data_.push_back(c);
           messageBytes++;
-          if (messageBytes == 1) // start byte found
+          switch (messageBytes)
           {
-            continue; // process next received byte
+            case 1: // start byte found
+              break;
+            case 2: // first part of size found
+            {
+              messageSize = c;
+              break;
+            }
+            case 3: // second part of size found
+            {
+              messageSize = (int)messageSize << 8 | c;
+              ESP_LOGV(TAG, "Message size %d", messageSize);
+              break;  
+            }
+            default:
+            {
+              if (messageBytes >= (messageSize+2)) // end byte found
+              {  
+                receiving_ = false;
+                process_message(data_, this);
+              }
+              break;
+            }
           }
-          if (messageBytes == 2) // first part of size found
-          {
-            messageSize1 = c;
-            continue; // process next received byte
-          }
-          if (messageBytes == 3) // second part of size found
-          {
-            messageSize = (int)messageSize1 << 8 | c;
-            ESP_LOGV(TAG, "Message size %d", messageSize);
-            continue; // process next received byte  
-          }
-//          if (c != 0x34)
-//            continue; // endbyte not found
-
-          if (messageBytes < (messageSize+2)) // not there yet
-          {
-            continue; // process next received byte   
-          }
-          receiving_ = false;
-          process_message(data_, this);
         }
       }
     }
