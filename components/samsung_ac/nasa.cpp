@@ -714,8 +714,10 @@ namespace esphome
 					case MessageNumber::VAR_OUT_823F:
 					case MessageNumber::VAR_OUT_8243:
 					case MessageNumber::VAR_OUT_8247:
-					case MessageNumber::VAR_OUT_824C:
 					case MessageNumber::VAR_OUT_8248:
+ 					case MessageNumber::VAR_OUT_8249:
+                    case MessageNumber::VAR_OUT_824B:
+                    case MessageNumber::VAR_OUT_824C:
 					case MessageNumber::VAR_OUT_CONTROL_REFRIGERANTS_VOLUME_824F:
 					case MessageNumber::VAR_OUT_SENSOR_IPM1_8254:
 					case MessageNumber::VAR_OUT_CONTROL_ORDER_CFREQ_COMP2_8274:
