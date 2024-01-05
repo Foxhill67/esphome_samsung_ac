@@ -137,7 +137,7 @@ namespace esphome
 //          if (c != 0x34)
 //            continue; // endbyte not found
 
-          if (messageBytes < (messageSize+1)) // not there yet
+          if (messageBytes < (messageSize+2)) // not there yet
           {
             continue; // process next received byte   
           }
