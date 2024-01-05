@@ -110,14 +110,31 @@ namespace esphome
         if (c == 0x32 && !receiving_) // start-byte found
         {
           receiving_ = true;
+          messageBytes = 0;
+          messageSize = 0;
           data_.clear();
         }
         if (receiving_)
         {
           data_.push_back(c);
-          if (c != 0x34)
-            continue; // endbyte not found
-
+          messageBytes++;
+          if (messageBytes == 1) // first part of size found
+          {
+            messageSize = (int)c;
+            continue; // process next received byte  
+          }
+          if (messageBytes == 2) // second part of size found
+          {
+            messageSize = (int)messageSize << 8 | (int)c;
+            ESP_LOGV(TAG, "Message size %d", messageSize);
+            continue; // process next received byte  
+          }
+//          if (c != 0x34)
+//            continue; // endbyte not found
+          if (messageBytes < messageSize) // not there yet
+          {
+            continue; // process next received byte   
+          }
           receiving_ = false;
           process_message(data_, this);
         }
