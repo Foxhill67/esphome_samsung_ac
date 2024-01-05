@@ -118,12 +118,13 @@ namespace esphome
         if (receiving_)
         {
           data_.push_back(c);
-          if (messageBytes == 1) // first part of size found
+          messageBytes++;
+          if (messageBytes == 2) // first part of size found
           {
             messageSize1 = c;
-            continue; // process next received byte  
+            continue; // process next received byte
           }
-          if (messageBytes == 2) // second part of size found
+          if (messageBytes == 3) // second part of size found
           {
             messageSize = (int)messageSize1 << 8 | c;
             ESP_LOGV(TAG, "Message size %d", messageSize);
@@ -134,7 +135,6 @@ namespace esphome
 
           if (messageBytes < (messageSize+1)) // not there yet
           {
-            messageBytes++;
             continue; // process next received byte   
           }
           receiving_ = false;
