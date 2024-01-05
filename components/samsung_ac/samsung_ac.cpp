@@ -110,32 +110,32 @@ namespace esphome
         if (c == 0x32 && !receiving_) // start-byte found
         {
           receiving_ = true;
-          messageBytes = 0;
-          messageSize = 0;
+          bytes_ = 0;
+          size_ = 0;
           data_.clear();
         }
         if (receiving_)
         {
           data_.push_back(c);
-          messageBytes++;
-          switch (messageBytes)
+          bytes_++;
+          switch (bytes_)
           {
             case 1: // start byte found
               break;
             case 2: // first part of size found
             {
-              messageSize = c;
+              size_ = c;
               break;
             }
             case 3: // second part of size found
             {
-              messageSize = (int)messageSize << 8 | c;
-              ESP_LOGV(TAG, "Message size %d", messageSize);
+              size_ = (int)size_ << 8 | c;
+              ESP_LOGV(TAG, "Message size in packet: %d", size_);
               break;  
             }
-            default:
+            default: // subsequent bytes 
             {
-              if (messageBytes >= (messageSize+2)) // end byte found
+              if (bytes_ >= (size_+2)) // end byte found
               {  
                 receiving_ = false;
                 process_message(data_, this);
