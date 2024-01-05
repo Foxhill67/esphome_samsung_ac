@@ -121,7 +121,7 @@ namespace esphome
           messageBytes++;
           if (messageBytes == 1) // first part of size found
           {
-            messageSize1 = )c;
+            messageSize1 = c;
             continue; // process next received byte  
           }
           if (messageBytes == 2) // second part of size found
