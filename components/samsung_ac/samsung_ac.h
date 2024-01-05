@@ -126,6 +126,7 @@ namespace esphome
       std::vector<uint8_t> data_;
       bool receiving_{false};
       uint16_t messageBytes = 0;
+      uint8_t c messageSize1 = 0;
       uint16_t messageSize = 0;
       uint32_t last_transmission_{0};
 
