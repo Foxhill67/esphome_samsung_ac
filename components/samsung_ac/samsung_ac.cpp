@@ -108,7 +108,7 @@ namespace esphome
         uint8_t c;
 
         read_byte(&c);
-        ESP_LOGV(TAG, "byte: %s", c);
+        ESP_LOGV(TAG, "byte: %02x", c);
         if (c == 0x32 && !receiving_) // start-byte found
         {
           receiving_ = true;
