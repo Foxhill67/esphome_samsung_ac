@@ -2,7 +2,7 @@
 
 namespace esphome
 {
-    namespace samsung_ac
+    namespace nasa2mqtt
     {
         std::string long_to_hex(long number)
         {
@@ -40,5 +40,5 @@ namespace esphome
         {
             std::cout << std::bitset<8>(value) << std::endl;
         }
-    } // namespace samsung_ac
+    } // namespace nasa2mqtt
 } // namespace esphome

@@ -1,5 +1,5 @@
 #include "esphome/core/log.h"
-#include "debug_mqtt.h"
+#include "mqtt.h"
 
 #ifdef USE_ESP8266
 #include <AsyncMqttClient.h>
@@ -12,9 +12,9 @@ esp_mqtt_client_handle_t mqtt_client{nullptr};
 
 namespace esphome
 {
-    namespace samsung_ac
+    namespace nasa2mqtt
     {
-        bool debug_mqtt_connected()
+        bool mqtt_connected()
         {
 #ifdef USE_ESP8266
             if (mqtt_client == nullptr)
@@ -31,7 +31,7 @@ namespace esphome
 #endif
         }
 
-        void debug_mqtt_connect(const std::string &host, const uint16_t port, const std::string &username, const std::string &password)
+        void mqtt_connect(const std::string &host, const uint16_t port, const std::string &username, const std::string &password)
         {
 #ifdef USE_ESP8266
             if (mqtt_client == nullptr)
@@ -61,7 +61,7 @@ namespace esphome
 #endif
         }
 
-        bool debug_mqtt_publish(const std::string &topic, const std::string &payload)
+        bool mqtt_publish(const std::string &topic, const std::string &payload)
         {
 #ifdef USE_ESP8266
             if (mqtt_client == nullptr)
@@ -77,5 +77,5 @@ namespace esphome
             return true;
 #endif
         }
-    } // namespace samsung_ac
+    } // namespace nasa2mqtt
 } // namespace esphome

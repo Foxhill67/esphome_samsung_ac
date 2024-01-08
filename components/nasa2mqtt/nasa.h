@@ -6,7 +6,7 @@
 
 namespace esphome
 {
-    namespace samsung_ac
+    namespace nasa2mqtt
     {
         enum class AddressClass : uint8_t
         {
@@ -351,11 +351,11 @@ namespace esphome
             uint8_t address;
             uint8_t size = 3;
 
-            static Address parse(const std::string &str);
+ //?           static Address parse(const std::string &str);
             static Address get_my_address();
 
             void decode(std::vector<uint8_t> &data, unsigned int index);
-            void encode(std::vector<uint8_t> &data);
+//?            void encode(std::vector<uint8_t> &data);
             std::string to_string();
         };
 
@@ -371,7 +371,7 @@ namespace esphome
             uint8_t size = 3;
 
             void decode(std::vector<uint8_t> &data, unsigned int index);
-            void encode(std::vector<uint8_t> &data);
+//?            void encode(std::vector<uint8_t> &data);
             std::string to_string();
         };
 
@@ -402,7 +402,7 @@ namespace esphome
 
             static MessageSet decode(std::vector<uint8_t> &data, unsigned int index, int capacity);
 
-            void encode(std::vector<uint8_t> &data);
+//?            void encode(std::vector<uint8_t> &data);
             std::string to_string();
         };
 
@@ -413,11 +413,11 @@ namespace esphome
             Command commad;
             std::vector<MessageSet> messages;
 
-            static Packet create(Address da, DataType dataType, MessageNumber messageNumber, int value);
-            static Packet createa_partial(Address da, DataType dataType);
+//?            static Packet create(Address da, DataType dataType, MessageNumber messageNumber, int value);
+//?            static Packet createa_partial(Address da, DataType dataType);
 
             bool decode(std::vector<uint8_t> &data);
-            std::vector<uint8_t> encode();
+//?            std::vector<uint8_t> encode();
             std::string to_string();
         };
 
@@ -428,11 +428,11 @@ namespace esphome
         public:
             NasaProtocol() = default;
 
-            std::vector<uint8_t> get_power_message(const std::string &address, bool value) override;
-            std::vector<uint8_t> get_target_temp_message(const std::string &address, float value) override;
-            std::vector<uint8_t> get_mode_message(const std::string &address, Mode value) override;
-            std::vector<uint8_t> get_fanmode_message(const std::string &address, FanMode value) override;
+//?            std::vector<uint8_t> get_power_message(const std::string &address, bool value) override;
+//?            std::vector<uint8_t> get_target_temp_message(const std::string &address, float value) override;
+//?            std::vector<uint8_t> get_mode_message(const std::string &address, Mode value) override;
+//?            std::vector<uint8_t> get_fanmode_message(const std::string &address, FanMode value) override;
         };
 
-    } // namespace samsung_ac
+    } // namespace nasa2mqtt
 } // namespace esphome

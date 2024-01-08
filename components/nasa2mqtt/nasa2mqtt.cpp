@@ -1,25 +1,25 @@
 #include "esphome/core/log.h"
-#include "samsung_ac.h"
-#include "debug_mqtt.h"
+#include "nasa2mqtt.h"
+#include "mqtt.h"
 #include "util.h"
 #include <vector>
 
 namespace esphome
 {
-  namespace samsung_ac
+  namespace nasa2mqtt
   {
-    static const char *TAG = "samsung_ac";
+    static const char *TAG = "NASA2MQTT";
 
-    void Samsung_AC::setup()
+    void NASA2MQTT::setup()
     {
       ESP_LOGW(TAG, "setup");
     }
 
-    void Samsung_AC::update()
+    void NASA2MQTT::update()
     {
       ESP_LOGW(TAG, "update");
 
-      debug_mqtt_connect(debug_mqtt_host, debug_mqtt_port, debug_mqtt_username, debug_mqtt_password);
+      mqtt_connect(mqtt_host, mqtt_port, mqtt_username, mqtt_password);
 
       // Waiting for first update before beginning processing data
       if (data_processing_init)
@@ -28,17 +28,17 @@ namespace esphome
         data_processing_init = false;
       }
 
-      if (data_processing_paused)
-      {
-        ESP_LOGCONFIG(TAG, "Data Processing is paused !!!!");
-      }
+//?      if (data_processing_paused)
+//?      {
+//?        ESP_LOGCONFIG(TAG, "Data Processing is paused !!!!");
+//?      }
 
-      std::string devices = "";
-      for (const auto &[address, device] : devices_)
-      {
-        devices += devices.length() > 0 ? ", " + address : address;
-      }
-      ESP_LOGCONFIG(TAG, "Configured devices: %s", devices.c_str());
+//?      std::string devices = "";
+//?      for (const auto &[address, device] : devices_)
+//?      {
+//?        devices += devices.length() > 0 ? ", " + address : address;
+//?      }
+//?      ESP_LOGCONFIG(TAG, "Configured devices: %s", devices.c_str());
 
       std::string knownIndoor = "";
       std::string knownOutdoor = "";
@@ -65,20 +65,20 @@ namespace esphome
         ESP_LOGCONFIG(TAG, "  Other:   %s", knownOther.c_str());
     }
 
-    void Samsung_AC::send_bus_message(std::vector<uint8_t> &data)
-    {
-// commented out to avoid sending messages for now !!      out_.insert(out_.end(), data.begin(), data.end());
-    }
+//?    void NASA2MQTT::send_bus_message(std::vector<uint8_t> &data)
+//?    {
+//?// commented out to avoid sending messages for now !!      out_.insert(out_.end(), data.begin(), data.end());
+//?    }
 
-    void Samsung_AC::dump_config()
+    void NASA2MQTT::dump_config()
     {
-      ESP_LOGCONFIG(TAG, "Samsung_AC:");
+      ESP_LOGCONFIG(TAG, "NASA2MQTT:");
       this->check_uart_settings(9600, 1, uart::UART_CONFIG_PARITY_EVEN, 8);
     }
 
-    void Samsung_AC::loop()
+    void NASA2MQTT::loop()
     {
-      if (data_processing_init || data_processing_paused)
+      if (data_processing_init)
         return;
 
       const uint32_t now = millis();
@@ -89,18 +89,18 @@ namespace esphome
         receiving_ = false;
       }
 
-      if (!available())
-      {
-        if (out_.size() > 0)
-        {
-          ESP_LOGW(TAG, "write %s", bytes_to_hex(out_).c_str());
-          this->write_array(out_);
-          this->flush();
-          out_.clear();
-        }
-
-        return; // nothing in uart-input-buffer, end here
-      }
+//?      if (!available())
+//?      {
+//?        if (out_.size() > 0)
+//?        {
+//?          ESP_LOGW(TAG, "write %s", bytes_to_hex(out_).c_str());
+//?          this->write_array(out_);
+//?          this->flush();
+//?          out_.clear();
+//?        }
+//?
+//?        return; // nothing in uart-input-buffer, end here
+//?      }
 
       last_transmission_ = now;
       while (available())
@@ -108,7 +108,6 @@ namespace esphome
         uint8_t c;
 
         read_byte(&c);
-//        ESP_LOGV(TAG, "byte: %02x", c);
         if (c == 0x32 && !receiving_) // start-byte found
         {
           receiving_ = true;
@@ -149,6 +148,6 @@ namespace esphome
       }
     }
 
-    float Samsung_AC::get_setup_priority() const { return setup_priority::DATA; }
-  } // namespace samsung_ac
+//?   float NASA2MQTT::get_setup_priority() const { return setup_priority::DATA; }
+  } // namespace nasa2mqtt
 } // namespace esphome
