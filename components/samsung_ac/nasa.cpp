@@ -753,8 +753,11 @@ namespace esphome
 					case MessageNumber::LVAR_OUT_8417:
 					case MessageNumber::LVAR_OUT_841F:
 					{
-						debug_mqtt_publish("homeassistant/samsung_ehs/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
-						break;
+                        if (debug_mqtt_connected())
+                        {
+						    debug_mqtt_publish("homeassistant/samsung_ehs/" + long_to_hex((uint16_t)message.messageNumber) + "/state", std::to_string(message.value));
+						    break;
+                        }
 					}	
 					default:	
 					{	
