@@ -40,21 +40,21 @@ namespace esphome
 //?            virtual std::vector<uint8_t> get_fanmode_message(const std::string &address, FanMode value) = 0;
 //?        };
 
-//?        class MessageTarget
-//?        {
-//?        public:
-//?            virtual void register_address(const std::string address) = 0;
+        class MessageTarget
+        {
+        public:
+            virtual void register_address(const std::string address) = 0;
 //?            virtual void set_power(const std::string address, bool value) = 0;
 //?            virtual void set_room_temperature(const std::string address, float value) = 0;
 //?            virtual void set_room_humidity(const std::string address, float value) = 0;
 //?            virtual void set_target_temperature(const std::string address, float value) = 0;
 //?            virtual void set_mode(const std::string address, Mode mode) = 0;
 //?            virtual void set_fanmode(const std::string address, FanMode fanmode) = 0;
-//?        };
+        };
 
         void process_message(std::vector<uint8_t> &data, MessageTarget *target);
 
-        Protocol *get_protocol(const std::string &address);
+//?        Protocol *get_protocol(const std::string &address);
 
         bool is_nasa_address(const std::string &address);
 

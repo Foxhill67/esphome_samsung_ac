@@ -32,12 +32,12 @@ namespace esphome
         addresses_.insert(address);
       }
 
-      void set_debug_mqtt(std::string host, int port, std::string username, std::string password)
+      void set_mqtt(std::string host, int port, std::string username, std::string password)
       {
-        debug_mqtt_host = host;
-        debug_mqtt_port = port;
-        debug_mqtt_username = username;
-        debug_mqtt_password = password;
+       mqtt_host = host;
+       mqtt_port = port;
+       mqtt_username = username;
+       mqtt_password = password;
       }
 
       void set_debug_log_messages(bool value)
