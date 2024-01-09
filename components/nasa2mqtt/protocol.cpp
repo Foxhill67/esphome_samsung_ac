@@ -33,10 +33,10 @@ namespace esphome
             ESP_LOGW(TAG, "Unknown message type %s", bytes_to_hex(data).c_str());
         }
 
-//?        bool is_nasa_address(const std::string &address)
-//?        {
-//?            return address.size() != 2;
-//?        }
+        bool is_nasa_address(const std::string &address)
+        {
+            return address.size() != 2;
+        }
 
 //?        Protocol *nasaProtocol = new NasaProtocol();
 //?        Protocol *nonNasaProtocol = new NonNasaProtocol();
