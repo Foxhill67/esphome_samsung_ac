@@ -24,7 +24,7 @@ namespace esphome
       float get_setup_priority() const override;
       void setup() override;
       void update() override;
-      void loop() override;
+//?      void loop() override;
       void dump_config() override;
 
       void register_address(const std::string address) override
