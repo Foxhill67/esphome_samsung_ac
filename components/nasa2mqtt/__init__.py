@@ -1,8 +1,8 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import uart, sensor, switch, select, number, climate
-#?from esphome.const import (
-#?    CONF_ID,
+from esphome.const import (
+    CONF_ID,
 #?    DEVICE_CLASS_TEMPERATURE,
 #?    STATE_CLASS_MEASUREMENT,
 #?    DEVICE_CLASS_HUMIDITY,
@@ -10,7 +10,7 @@ from esphome.components import uart, sensor, switch, select, number, climate
 #?    CONF_DEVICE_CLASS,
 #?    UNIT_CELSIUS,
 #?    UNIT_PERCENT,
-#?)
+)
 from esphome.core import CORE
 
 CODEOWNERS = ["foxhill67"]
@@ -114,7 +114,7 @@ async def to_code(config):
     if CORE.is_esp8266 or CORE.is_libretiny or CORE.is_esp32:
         cg.add_library("heman/AsyncMqttClient-esphome", "2.0.0")
 
-#?    var = cg.new_Pvariable(config[CONF_ID])
+    var = cg.new_Pvariable(config[CONF_ID])
 #?    for device_index, device in enumerate(config[CONF_DEVICES]):
 #?        var_dev = cg.new_Pvariable(
 #?            device[CONF_DEVICE_ID], device[CONF_DEVICE_ADDRESS], var)
