@@ -82,9 +82,9 @@ NASA2MQTT = nasa2mqtt.class_(
 #?CONF_PAUSE_PROCESSING = "pause_processing"
 
 CONF_MQTT_HOST = "mqtt_host"
-CONF_MQTT_PORT = "_mqtt_port"
-CONF_MQTT_USERNAME = "_mqtt_username"
-CONF_MQTT_PASSWORD = "_mqtt_password"
+CONF_MQTT_PORT = "mqtt_port"
+CONF_MQTT_USERNAME = "mqtt_username"
+CONF_MQTT_PASSWORD = "mqtt_password"
 
 CONF_DEBUG_LOG_MESSAGES = "debug_log_messages"
 CONF_DEBUG_LOG_MESSAGES_RAW = "debug_log_messages_raw"
