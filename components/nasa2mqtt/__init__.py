@@ -163,7 +163,7 @@ async def to_code(config):
 #?        sens = await switch.new_switch(conf)
 #?        cg.add(var.set_pause_processing_switch(sens))
 
-    cg.add(var.set_debug_mqtt(config[CONF_MQTT_HOST], config[CONF_MQTT_PORT],
+    cg.add(var.set_mqtt(config[CONF_MQTT_HOST], config[CONF_MQTT_PORT],
            config[CONF_MQTT_USERNAME], config[CONF_MQTT_PASSWORD]))
 
     if (CONF_DEBUG_LOG_MESSAGES in config):
