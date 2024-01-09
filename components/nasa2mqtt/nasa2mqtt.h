@@ -21,7 +21,7 @@ namespace esphome
     public:
       NASA2MQTT() = default;
 
-      float get_setup_priority() const override;
+//?      float get_setup_priority() const override;
       void setup() override;
       void update() override;
       void loop() override;
