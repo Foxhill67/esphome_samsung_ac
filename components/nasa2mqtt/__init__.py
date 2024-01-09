@@ -42,7 +42,7 @@ NASA2MQTT = nasa2mqtt.class_(
 #?CLIMATE_SCHEMA = (
 #?    climate.CLIMATE_SCHEMA.extend(
 #?        {cv.GenerateID(): cv.declare_id(Samsung_AC_Climate)})
-)
+#?)
 
 #?CONF_DEVICE_ID = "samsung_ac_device_id"
 #?CONF_DEVICE_ADDRESS = "address"
