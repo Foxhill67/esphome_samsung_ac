@@ -38,15 +38,15 @@ namespace esphome
             return address.size() != 2;
         }
 
-        Protocol *nasaProtocol = new NasaProtocol();
+//?        Protocol *nasaProtocol = new NasaProtocol();
 //?        Protocol *nonNasaProtocol = new NonNasaProtocol();
 
-        Protocol *get_protocol(const std::string &address)
-        {
+//?        Protocol *get_protocol(const std::string &address)
+//?        {
 //?            if (!is_nasa_address(address))
 //?                return nonNasaProtocol;
 
-            return nasaProtocol;
-        }
+//?            return nasaProtocol;
+//?        }
     } // namespace nasa2mqtt
 } // namespace esphome
